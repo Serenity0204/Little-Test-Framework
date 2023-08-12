@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR) #FetchContent_MakeAvailable
-project(LittleTestFramework)
+project(LTF)
 
 # Globbing source files
 file(GLOB_RECURSE SOURCES "includes/**/*.cpp")
 
-add_library(LittleTestFramework ${SOURCES})
-target_include_directories(LittleTestFramework PUBLIC 
+add_library(LTF ${SOURCES})
+target_include_directories(LTF PUBLIC 
     $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
     $<INSTALL_INTERFACE:include>  # <prefix>/include
 )
@@ -85,8 +85,8 @@ endif()
 set(CMAKE_CXX_STANDARD 14)
 
 # Install library target
-install(TARGETS LittleTestFramework
-    EXPORT LittleTestFrameworkTargets
+install(TARGETS LTF
+    EXPORT LTFTargets
     LIBRARY DESTINATION lib
     ARCHIVE DESTINATION lib
     RUNTIME DESTINATION bin
@@ -95,14 +95,14 @@ install(TARGETS LittleTestFramework
 
 # This makes project importable from the install directory
 # Put config file into the CMake user package registry
-install(EXPORT LittleTestFrameworkTargets
-    FILE LittleTestFrameworkTargets.cmake
-    NAMESPACE LittleTestFramework::
-    DESTINATION lib/cmake/LittleTestFramework
+install(EXPORT LTFTargets
+    FILE LTFTargets.cmake
+    NAMESPACE LTF::
+    DESTINATION lib/cmake/LTF
 )
 
 # This makes project importable from the build directory
-export(TARGETS LittleTestFramework
-    NAMESPACE LittleTestFramework::
-    FILE ${CMAKE_CURRENT_BINARY_DIR}/LittleTestFramework.cmake
+export(TARGETS LTF
+    NAMESPACE LTF::
+    FILE ${CMAKE_CURRENT_BINARY_DIR}/LTF.cmake
 )
