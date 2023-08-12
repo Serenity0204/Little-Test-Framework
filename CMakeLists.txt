@@ -1,5 +1,15 @@
 cmake_minimum_required(VERSION 3.14 FATAL_ERROR) #FetchContent_MakeAvailable
-project(project_name)
+project(LittleTestFramework)
+
+# Globbing source files
+file(GLOB_RECURSE SOURCES "includes/**/*.cpp")
+
+add_library(LittleTestFramework ${SOURCES})
+target_include_directories(LittleTestFramework PUBLIC 
+    $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/includes>
+    $<INSTALL_INTERFACE:include>  # <prefix>/include
+)
+
 
 #. . . . . . . . . . . . . . . . . . . .
 include(GNUInstallDirs)
@@ -23,43 +33,76 @@ if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
 endif()
 #. . . . . . . . . . . . . . . . . . . .
 
-## ------------------------------------
-find_package(GTest QUIET)
-if (NOT ${GTest_FOUND}) # GTest not found, FetchContent!
-include(FetchContent)
-FetchContent_Declare(
-    googletest
-    GIT_REPOSITORY https://github.com/google/googletest.git
-    GIT_TAG        v1.13.0)
-FetchContent_MakeAvailable(googletest)
+
+## Change ON <-> OFF for testing
+option(BUILD_TESTS "Build tests" OFF)
+
+if(BUILD_TESTS)
+    ## ------------------------------------
+    find_package(GTest QUIET)
+    if (NOT ${GTest_FOUND}) # GTest not found, FetchContent!
+    include(FetchContent)
+    FetchContent_Declare(
+        googletest
+        GIT_REPOSITORY https://github.com/google/googletest.git
+        GIT_TAG        v1.13.0)
+    FetchContent_MakeAvailable(googletest)
+    endif()
+        
+    # GoogleTest requires at least C++14
+    set(CMAKE_CXX_STANDARD 14)
+    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    # ------------------------------------
+
+
+
+    #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    #   Grab all cpp files from includes folder
+    #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+    set(INCLUDES_FOLDER includes)
+    FILE(GLOB_RECURSE SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS "${INCLUDES_FOLDER}/*.cpp")
+    #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+
+
+    ADD_EXECUTABLE(main
+        main.cpp
+        ${SOURCE_FILES}
+    )
+
+    ADD_EXECUTABLE(test_stub
+        _tests/_test_files/test_stub.cpp
+        ${SOURCE_FILES}
+    )
+
+
+    TARGET_LINK_LIBRARIES(main GTest::gtest_main)
+    TARGET_LINK_LIBRARIES(test_stub GTest::gtest_main)
 endif()
-    
-# GoogleTest requires at least C++14
+
+
+
 set(CMAKE_CXX_STANDARD 14)
-set(CMAKE_CXX_STANDARD_REQUIRED ON)
-# ------------------------------------
 
-
-
-#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-#   Grab all cpp files from includes folder
-#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-set(INCLUDES_FOLDER includes)
-FILE(GLOB_RECURSE SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS "${INCLUDES_FOLDER}/*.cpp")
-#- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
-
-
-
-ADD_EXECUTABLE(main
-    main.cpp
-    ${SOURCE_FILES}
+# Install library target
+install(TARGETS LittleTestFramework
+    EXPORT LittleTestFrameworkTargets
+    LIBRARY DESTINATION lib
+    ARCHIVE DESTINATION lib
+    RUNTIME DESTINATION bin
+    INCLUDES DESTINATION include
 )
 
-ADD_EXECUTABLE(test_stub
-    _tests/_test_files/test_stub.cpp
-    ${SOURCE_FILES}
+# This makes project importable from the install directory
+# Put config file into the CMake user package registry
+install(EXPORT LittleTestFrameworkTargets
+    FILE LittleTestFrameworkTargets.cmake
+    NAMESPACE LittleTestFramework::
+    DESTINATION lib/cmake/LittleTestFramework
 )
 
-
-TARGET_LINK_LIBRARIES(main GTest::gtest_main)
-TARGET_LINK_LIBRARIES(test_stub GTest::gtest_main)
+# This makes project importable from the build directory
+export(TARGETS LittleTestFramework
+    NAMESPACE LittleTestFramework::
+    FILE ${CMAKE_CURRENT_BINARY_DIR}/LittleTestFramework.cmake
+)
