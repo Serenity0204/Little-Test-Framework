@@ -8,6 +8,12 @@
 #include <string>
 #include <vector>
 
+enum LTFCode
+{
+    FAIL = 0,
+    SUCCESS = 1,
+};
+
 class TestFramework
 {
 public:
@@ -17,7 +23,7 @@ public:
         bool passed;
     };
 
-    void addTest(std::string name, void (*testFunction)())
+    void addTest(std::string name, LTFCode (*testFunction)())
     {
         tests.push_back({name, testFunction});
     }
@@ -31,9 +37,17 @@ public:
         {
             try
             {
-                test.testFunction();
-                std::cout << "[PASS] " << test.name << std::endl;
-                numPassed++;
+                LTFCode code = test.testFunction();
+                if (code == LTFCode::SUCCESS)
+                {
+                    std::cout << "[PASS] " << test.name << std::endl;
+                    numPassed++;
+                }
+                if (code == LTFCode::FAIL)
+                {
+                    std::cout << "[FAIL] " << test.name << std::endl;
+                    numFailed++;
+                }
             }
             catch (const std::exception& e)
             {
@@ -52,7 +66,7 @@ private:
     struct Test
     {
         std::string name;
-        void (*testFunction)();
+        LTFCode (*testFunction)();
     };
 
     std::vector<Test> tests;
@@ -68,17 +82,18 @@ private:
 
 // Example Test Cases
 
-void testAddition()
+LTFCode testAddition()
 {
     int result = 2 + 3;
     ASSERT_EQUAL(5, result);
+    return LTFCode::FAIL;
 }
 
-void testSubtraction()
+LTFCode testSubtraction()
 {
     int result = 8 - 4;
     ASSERT_EQUAL(4, result);
+    return LTFCode::SUCCESS;
 }
-
 
 #endif // LTF_H
