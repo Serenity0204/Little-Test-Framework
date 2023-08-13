@@ -8,7 +8,7 @@ namespace LTF
         this->_test_name = "";
     }
 
-    TestCase::TestCase(const std::string& name, LTFCode (*function)())
+    TestCase::TestCase(const std::string& name, LTFStatus (*function)())
     {
         this->_test_name = name;
         this->_function = function;
@@ -23,12 +23,12 @@ namespace LTF
         this->_test_name = name;
     }
 
-    void TestCase::set_test_function(LTFCode (*function)())
+    void TestCase::set_test_function(LTFStatus (*function)())
     {
         this->_function = function;
     }
 
-    LTFCode TestCase::run()
+    LTFStatus TestCase::run()
     {
         return this->_function();
     }

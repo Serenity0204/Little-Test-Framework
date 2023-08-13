@@ -13,19 +13,32 @@ namespace LTF
         SUCCESS = 1,
     };
 
+    struct LTFStatus
+    {
+    public:
+        std::size_t line;
+        LTFCode code;
+        LTFStatus(LTFCode code = LTFCode::FAIL, std::size_t line = 0)
+        {
+            this->line = line;
+            this->code = code;
+        }
+        ~LTFStatus() {}
+    };
+
     class TestCase
     {
     private:
         std::string _test_name;
-        LTFCode (*_function)();
+        LTFStatus (*_function)();
 
     public:
         TestCase();
-        TestCase(const std::string& name, LTFCode (*function)());
+        TestCase(const std::string& name, LTFStatus (*function)());
         ~TestCase();
-        LTFCode run();
+        LTFStatus run();
         void set_test_name(const std::string& name);
-        void set_test_function(LTFCode (*function)());
+        void set_test_function(LTFStatus (*function)());
         inline const std::string& get_test_name() const { return this->_test_name; }
     };
 };

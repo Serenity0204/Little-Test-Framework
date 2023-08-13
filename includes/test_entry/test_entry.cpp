@@ -2,7 +2,7 @@
 
 namespace LTF
 {
-    TestEntry LTFEntry = TestEntry();
+    TestEntry LittleTestFramework = TestEntry();
 
     TestEntry::TestEntry()
     {

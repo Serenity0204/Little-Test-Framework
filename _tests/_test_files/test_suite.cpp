@@ -22,12 +22,12 @@ bool test_suite1(bool debug = false)
         if (debug)
         {
             cout << x.first << ":";
-            if (x.second == LTF::SUCCESS) cout << "success" << endl;
-            if (x.second == LTF::FAIL) cout << "fail" << endl;
+            if (x.second.code == LTF::SUCCESS) cout << "success" << endl;
+            if (x.second.code == LTF::FAIL) cout << "fail" << endl;
         }
-        if (x.second == LTF::FAIL && i == 0) return false;
-        if (x.second == LTF::SUCCESS && i == 1) return false;
-        if (x.second == LTF::FAIL && i == 2) return false;
+        if (x.second.code == LTF::FAIL && i == 0) return false;
+        if (x.second.code == LTF::SUCCESS && i == 1) return false;
+        if (x.second.code == LTF::FAIL && i == 2) return false;
         i++;
     }
     return true;

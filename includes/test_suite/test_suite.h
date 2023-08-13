@@ -4,6 +4,7 @@
 #pragma once
 
 #include "../test_case/test_case.h"
+#include "../test_entry/test_entry.h"
 #include <iostream>
 #include <map>
 #include <string>
@@ -15,7 +16,7 @@ namespace LTF
     private:
         std::string _suite_name;
         std::map<std::string, TestCase> _test_cases;
-        std::map<std::string, LTF::LTFCode> _passed_flags;
+        std::map<std::string, LTF::LTFStatus> _passed_flags;
 
     public:
         TestSuite();
@@ -23,7 +24,7 @@ namespace LTF
         ~TestSuite();
 
         TestSuite& add(const TestCase& test_case);
-        std::map<std::string, LTF::LTFCode>& run_all();
+        std::map<std::string, LTF::LTFStatus>& run_all();
         inline const std::string& get_suite_name() const { return this->_suite_name; }
         inline std::size_t get_num_tests() const { return this->_test_cases.size(); }
     };

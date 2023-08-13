@@ -8,6 +8,9 @@
 
 namespace LTF
 {
+    class TestSuite;
+    class TestCase;
+    class TestEntry;
 
     class TestEntry
     {
@@ -21,6 +24,6 @@ namespace LTF
         inline std::size_t get_num_suites() { return this->_suites.size(); }
     };
 
-    extern TestEntry LTFEntry;
+    extern TestEntry LittleTestFramework;
 };
 #endif // TEST_ENTRY_H

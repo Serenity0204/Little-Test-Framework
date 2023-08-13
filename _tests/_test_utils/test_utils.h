@@ -2,20 +2,20 @@
 #define TEST_UTILS_H
 #include "../../includes/LTF.h"
 
-inline LTF::LTFCode test_utils1()
+inline LTF::LTFStatus test_utils1()
 {
-    return LTF::SUCCESS;
+    return LTF::LTFStatus(LTF::SUCCESS, 7);
 }
 
-inline LTF::LTFCode test_utils2()
+inline LTF::LTFStatus test_utils2()
 {
-    return LTF::FAIL;
+    return LTF::LTFStatus(LTF::FAIL, 12);
 }
 
-inline LTF::LTFCode test_utils3()
+inline LTF::LTFStatus test_utils3()
 {
     int a = 1 + 1;
-    if (a == 2) return LTF::SUCCESS;
+    if (a == 2) return LTF::LTFStatus(LTF::SUCCESS, 18);
     return LTF::FAIL;
 }
 #endif
