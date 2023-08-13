@@ -22,8 +22,8 @@ bool test_suite1(bool debug = false)
         if (debug)
         {
             cout << x.first << ":";
-            if (x.second.code == LTF::SUCCESS) cout << "success" << endl;
-            if (x.second.code == LTF::FAIL) cout << "fail" << endl;
+            if (x.second.code == LTF::SUCCESS) cout << "success at line:" << x.second.line << endl;
+            if (x.second.code == LTF::FAIL) cout << "fail at line:" << x.second.line << endl;
         }
         if (x.second.code == LTF::FAIL && i == 0) return false;
         if (x.second.code == LTF::SUCCESS && i == 1) return false;
@@ -34,7 +34,7 @@ bool test_suite1(bool debug = false)
 }
 
 // Lord help me!
-const bool debug = false;
+const bool debug = true;
 
 TEST(TEST_SUITE, TestSuite1)
 {
