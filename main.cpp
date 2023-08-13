@@ -4,12 +4,12 @@ using namespace std;
 
 int main()
 {
-    TestFramework testFramework;
+    // TestFramework testFramework;
 
-    testFramework.addTest("Addition Test", testAddition);
-    testFramework.addTest("Subtraction Test", testSubtraction);
+    // testFramework.addTest("Addition Test", testAddition);
+    // testFramework.addTest("Subtraction Test", testSubtraction);
 
-    testFramework.runTests();
+    // testFramework.runTests();
 
     return 0;
 }

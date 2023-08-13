@@ -35,7 +35,7 @@ endif()
 
 
 ## Change ON <-> OFF for testing
-option(BUILD_TESTS "Build tests" OFF)
+option(BUILD_TESTS "Build tests" ON)
 
 if(BUILD_TESTS)
     ## ------------------------------------
@@ -51,7 +51,7 @@ if(BUILD_TESTS)
         
     # GoogleTest requires at least C++14
     set(CMAKE_CXX_STANDARD 14)
-    set(CMAKE_CXX_STANDARD_REQUIRED ON)
+    set(CMAKE_CXX_STANDARD_REQUIRED OFF)
     # ------------------------------------
 
 
@@ -63,21 +63,21 @@ if(BUILD_TESTS)
     FILE(GLOB_RECURSE SOURCE_FILES RELATIVE ${CMAKE_CURRENT_SOURCE_DIR} CONFIGURE_DEPENDS "${INCLUDES_FOLDER}/*.cpp")
     #- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
 
-
+    
 
     ADD_EXECUTABLE(main
         main.cpp
         ${SOURCE_FILES}
     )
 
-    ADD_EXECUTABLE(test_stub
-        _tests/_test_files/test_stub.cpp
+    ADD_EXECUTABLE(test_suite
+        _tests/_test_files/test_suite.cpp
         ${SOURCE_FILES}
     )
 
 
     TARGET_LINK_LIBRARIES(main GTest::gtest_main)
-    TARGET_LINK_LIBRARIES(test_stub GTest::gtest_main)
+    TARGET_LINK_LIBRARIES(test_suite GTest::gtest_main)
 endif()
 
 
