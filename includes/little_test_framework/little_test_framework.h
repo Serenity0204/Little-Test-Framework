@@ -21,6 +21,7 @@ namespace LTF
     private:
         // suite name vs suite
         static std::map<std::string, TestSuite> _suites;
+        static std::size_t _num_tests;
 
     public:
         // CTORS
