@@ -6,6 +6,7 @@ LTF::LittleTestFramework::LittleTestFramework()
 {
     this->_suites = std::map<std::string, LTF::TestSuite>();
 }
+
 LTF::LittleTestFramework::~LittleTestFramework()
 {
 }
@@ -14,13 +15,30 @@ void LTF::LittleTestFramework::add(const LTF::TestSuite& suite)
 {
     LTF::LittleTestFramework::_suites[suite.get_suite_name()] = suite;
 }
+
 bool LTF::LittleTestFramework::suite_exists(const std::string& suite_name)
 {
     return LTF::LittleTestFramework::_suites.count(suite_name) > 0;
 }
+
 LTF::TestSuite& LTF::LittleTestFramework::get_suite(const std::string& suite_name)
 {
     return LTF::LittleTestFramework::_suites[suite_name];
+}
+
+void LTF::LittleTestFramework::ignore_suites(const std::vector<std::string>& suites)
+{
+    for (const std::string& suite : suites) LTF::LittleTestFramework::_suites.erase(suite);
+}
+
+void LTF::LittleTestFramework::ignore_tests(const std::string& suite_name, const std::vector<std::string>& tests)
+{
+    // if suite doesn't exist then do early return
+    if (!LTF::LittleTestFramework::suite_exists(suite_name)) return;
+    // get the suite, remove the tests, then add it back
+    LTF::TestSuite suite = LTF::LittleTestFramework::get_suite(suite_name);
+    suite.ignore_tests(tests);
+    LTF::LittleTestFramework::add(suite);
 }
 
 void LTF::LittleTestFramework::run_all(bool debug, std::ostream& outs)

@@ -6,6 +6,7 @@
 #include "../little_test_framework/little_test_framework.h"
 #include "../test_case/test_case.h"
 #include "../test_suite/test_suite.h"
+#include <vector>
 
 namespace LTF
 {
@@ -46,6 +47,17 @@ namespace LTF
         LTF::LittleTestFramework::clean();
     }
 
+    // Ignore test suites
+    inline void LTF_IGNORE_SUITES(const std::vector<std::string>& ignored_suites)
+    {
+        LTF::LittleTestFramework::ignore_suites(ignored_suites);
+    }
+
+    // Ignore test cases by test suites
+    inline void LTF_IGNORE_TEST_CASES(const std::string& suite_name, const std::vector<std::string>& ignored_tests)
+    {
+        LTF::LittleTestFramework::ignore_tests(suite_name, ignored_tests);
+    }
 };
 
 #endif // TEST_TEMPLATE_H

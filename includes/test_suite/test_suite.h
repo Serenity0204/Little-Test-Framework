@@ -8,6 +8,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <vector>
 
 namespace LTF
 {
@@ -42,6 +43,12 @@ namespace LTF
             std::cout << "test cases:" << std::endl;
             for (const auto& test : this->_test_cases) std::cout << "name:" << test.first << std::endl;
             std::cout << std::endl;
+        }
+
+        // remove test cases
+        inline void ignore_tests(const std::vector<std::string>& tests)
+        {
+            for (const std::string& test : tests) this->_test_cases.erase(test);
         }
     };
 

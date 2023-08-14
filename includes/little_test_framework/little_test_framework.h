@@ -8,6 +8,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <vector>
 
 namespace LTF
 {
@@ -41,7 +42,11 @@ namespace LTF
 
         // main method to call to run all tests
         static void run_all(bool debug = false, std::ostream& outs = std::cout);
+
+        // remove
         static inline void clean() { LittleTestFramework::_suites.clear(); }
+        static void ignore_suites(const std::vector<std::string>& suites);
+        static void ignore_tests(const std::string& suite_name, const std::vector<std::string>& tests);
     };
 };
 #endif // LITTLE_TEST_FRAMEWORK_H

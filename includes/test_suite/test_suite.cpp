@@ -31,6 +31,7 @@ LTF::TestSuite& LTF::TestSuite::add(const TestCase& test_case)
 
 std::map<std::string, LTF::LTFStatus>& LTF::TestSuite::run_all(bool debug, int& test_count)
 {
+    this->_passed_flags.clear();
     for (const auto& test : this->_test_cases)
     {
         std::string name = test.first;
