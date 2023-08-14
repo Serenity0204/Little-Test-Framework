@@ -3,8 +3,8 @@
 
 #pragma once
 
+#include "../little_test_framework/little_test_framework.h"
 #include "../test_case/test_case.h"
-#include "../test_manager/test_manager.h"
 #include <iostream>
 #include <map>
 #include <string>

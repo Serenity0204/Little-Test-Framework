@@ -15,7 +15,7 @@ bool test_suite1(bool debug = false)
 {
     LTF::TestSuite suite("test1");
     suite.add({"test1", test_utils1}).add({"test2", test_utils2}).add({"test3", test_utils3});
-    LTF::LittleTestFramework.add(suite);
+    LTF::LittleTestFramework::add(suite);
     auto map = suite.run_all();
     int i = 0;
     for (auto x : map)
@@ -37,34 +37,34 @@ bool test_suite1(bool debug = false)
 bool test_manager(bool debug = false)
 {
     LTF::TestSuite suite1("test2");
-    LTF::LittleTestFramework.add(suite1);
-    if (LTF::LittleTestFramework.get_num_suites() != 2) return false;
+    LTF::LittleTestFramework::add(suite1);
+    if (LTF::LittleTestFramework::get_num_suites() != 2) return false;
     LTF::TestSuite suite2("test2");
-    LTF::LittleTestFramework.add(suite1);
-    if (LTF::LittleTestFramework.get_num_suites() != 2) return false;
+    LTF::LittleTestFramework::add(suite1);
+    if (LTF::LittleTestFramework::get_num_suites() != 2) return false;
     LTF::TestSuite suite3("test3");
-    LTF::LittleTestFramework.add(suite3);
-    if (LTF::LittleTestFramework.get_num_suites() != 3) return false;
+    LTF::LittleTestFramework::add(suite3);
+    if (LTF::LittleTestFramework::get_num_suites() != 3) return false;
     return true;
 }
 
 bool test_template(bool debug = false)
 {
     LTF_TEST(test4, abc, test_utils1);
-    if (LTF::LittleTestFramework.get_num_suites() != 4) return false;
+    if (LTF::LittleTestFramework::get_num_suites() != 4) return false;
     LTF_TEST(test4, abcd, test_utils2);
-    if (LTF::LittleTestFramework.get_num_suites() != 4) return false;
+    if (LTF::LittleTestFramework::get_num_suites() != 4) return false;
 
     if (debug)
     {
-        auto m = LTF::LittleTestFramework.get();
+        auto m = LTF::LittleTestFramework::get();
         for (const auto& x : m)
         {
             cout << x.first << endl;
             x.second.print();
         }
     }
-    if (LTF::LittleTestFramework.get_suite("test4").get_num_tests() != 2) return false;
+    if (LTF::LittleTestFramework::get_suite("test4").get_num_tests() != 2) return false;
     return true;
 }
 
@@ -77,7 +77,7 @@ TEST(TEST_SUITE, TestSuite1)
     EXPECT_EQ(success, true);
 }
 
-TEST(TEST_MANAGER, TestManager)
+TEST(TEST_MANAGER, LittleTestFramework)
 {
     bool success = test_manager(debug);
     EXPECT_EQ(success, true);

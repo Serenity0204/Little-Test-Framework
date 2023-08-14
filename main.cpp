@@ -56,27 +56,11 @@ LTF_TEST(SUITE1, test4, test_utils_main4);
 
 LTF_TEST(SUITE2, test1, test_utils_main4);
 
+const bool debug = true;
+
 int main()
 {
-    bool debug = true;
-    auto m = LTF::LittleTestFramework.get();
-    for (auto& x : m)
-    {
-        cout << "-----------------------------------" << endl;
-        cout << x.first << endl;
-        // x.second.print();
-        auto pass = x.second.run_all(debug);
-        for (auto flag : pass)
-        {
-            cout << flag.first << ":";
-            if (flag.second.code == LTF::SUCCESS) cout << "success";
-            if (flag.second.code == LTF::FAIL) cout << "fail";
-            if (debug)
-                cout << " at line:" << flag.second.line << endl;
-            else
-                cout << endl;
-        }
-        cout << "-----------------------------------" << endl;
-    }
+
+    LTF::LTF_RUN_ALL(debug);
     return 0;
 }
