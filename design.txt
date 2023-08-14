@@ -12,3 +12,6 @@ project structure:
 
 // TODO
 
+- Need to make the output better by adding test count, suite counts, fail/success counts
+- Need to make test timer and time out
+- Need to allow to be store in file for result
