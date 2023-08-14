@@ -3,10 +3,10 @@
 
 #pragma once
 
-#include "test_entry/test_manager.h"
-#include <iostream>
-#include <string>
-#include <vector>
+#include "test_case/test_case.h"
+#include "test_manager/test_manager.h"
+#include "test_suite/test_suite.h"
+#include "test_template/test_template.h"
 
 // enum LTFCode
 // {

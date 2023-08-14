@@ -2,6 +2,7 @@
 
 namespace LTF
 {
+
     TestSuite::TestSuite()
     {
     }
@@ -11,15 +12,19 @@ namespace LTF
         this->_suite_name = name;
         this->_test_cases = std::map<std::string, TestCase>();
         this->_passed_flags = std::map<std::string, LTF::LTFStatus>();
-
-        // adding this test suite to the global test entry
-        LTF::LittleTestFramework.add_test_suite(*this);
     }
 
     TestSuite::~TestSuite()
     {
     }
 
+    TestSuite& TestSuite::operator=(const TestSuite& rhs)
+    {
+        this->_suite_name = rhs._suite_name;
+        this->_test_cases = rhs._test_cases;
+        this->_passed_flags = rhs._passed_flags;
+        return *this;
+    }
     TestSuite& TestSuite::add(const TestCase& test_case)
     {
         std::string name = test_case.get_test_name();

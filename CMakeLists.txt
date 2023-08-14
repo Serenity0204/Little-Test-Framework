@@ -35,7 +35,7 @@ endif()
 
 
 ## Change ON <-> OFF for testing
-option(BUILD_TESTS "Build tests" ON)
+option(BUILD_TESTS "Build tests" OFF)
 
 if(BUILD_TESTS)
     ## ------------------------------------
@@ -70,14 +70,14 @@ if(BUILD_TESTS)
         ${SOURCE_FILES}
     )
 
-    ADD_EXECUTABLE(test_suite
-        _tests/_test_files/test_suite.cpp
+    ADD_EXECUTABLE(test_ltf
+        _tests/_test_files/test_ltf.cpp
         ${SOURCE_FILES}
     )
 
 
     TARGET_LINK_LIBRARIES(main GTest::gtest_main)
-    TARGET_LINK_LIBRARIES(test_suite GTest::gtest_main)
+    TARGET_LINK_LIBRARIES(test_ltf GTest::gtest_main)
 endif()
 
 
