@@ -122,7 +122,7 @@ inline LTF::LTFStatus test_utils_main4(bool debug = false)
         cout << "should be 120" << endl;
     }
     long long f = factorial(5);
-    if (f != 120) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
+    if (f == 120) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
     return LTF::LTFStatus(LTF::FAIL, __LINE__);
 }
 
