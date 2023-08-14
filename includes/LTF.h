@@ -3,7 +3,7 @@
 
 #pragma once
 
-#include "test_entry/test_entry.h"
+#include "test_entry/test_manager.h"
 #include <iostream>
 #include <string>
 #include <vector>

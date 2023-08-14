@@ -10,20 +10,20 @@ namespace LTF
 {
     class TestSuite;
     class TestCase;
-    class TestEntry;
+    class TestManager;
 
-    class TestEntry
+    class TestManager
     {
     private:
         std::vector<TestSuite> _suites;
 
     public:
-        TestEntry();
-        ~TestEntry();
+        TestManager();
+        ~TestManager();
         void add_test_suite(const TestSuite& suite);
         inline std::size_t get_num_suites() { return this->_suites.size(); }
     };
 
-    extern TestEntry LittleTestFramework;
+    extern TestManager LittleTestFramework;
 };
 #endif // TEST_ENTRY_H

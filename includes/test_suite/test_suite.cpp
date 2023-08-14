@@ -27,13 +27,13 @@ namespace LTF
         return *this;
     }
 
-    std::map<std::string, LTF::LTFStatus>& TestSuite::run_all()
+    std::map<std::string, LTF::LTFStatus>& TestSuite::run_all(bool debug)
     {
         for (const auto& test : this->_test_cases)
         {
             std::string name = test.first;
             TestCase test_case = test.second;
-            LTFStatus code = test_case.run();
+            LTFStatus code = test_case.run(debug);
             this->_passed_flags[name] = code;
         }
         return this->_passed_flags;
