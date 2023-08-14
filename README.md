@@ -29,10 +29,8 @@ int main()
 
 ## Demo
 - Debug == False
-<br/>
 ![false.png](./demo/false.png)
 - Debug == True
-<br/>
 ![false.png](./demo/true.png)
 
 
