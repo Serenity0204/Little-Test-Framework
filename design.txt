@@ -1,6 +1,11 @@
 project structure:
     --_tests // unit test using gtest framework(setup included in cmake)
     --includes // where all of the code reside
+        --LTF.h // main header
+        --test_case // test case struct with success indicator
+        --test_suite // test_suite with flags
+        --little_test_framework // main manager to run all of the collected test suites 
+        --test_template // macros like LTF_TEST to do test discovery
     --main.cpp // the main entry of the program
     --design.txt // project introduction
     --CMakeLists.txt // cmake for this project

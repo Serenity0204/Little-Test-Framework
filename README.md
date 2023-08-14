@@ -1,18 +1,80 @@
 
 # Little Test Framework (LTF)
-Project Description goes here
-
-* operation 1
-* operation 2
+Little Test Framework(LTF), is hassle-free C++ unit testing. Designed to make your testing experience efficient and effective, this framework provides a minimalistic approach while maintaining powerful testing capabilities.
 
 
-## Design
-Can be found in https://github.com/Serenity0204/Little-Test-Framework/blob/master/design.txt
+## Operations
+See the Usage for more comprehensive examples.
+* Make Your Ttility Functions Like 
+```
+inline LTF::LTFStatus <your utility function name>(bool debug = false)
+```
+* Register Your Test Case Like
+```
+LTF_TEST(<Test Suite Name>, <Test Case Name>, <Related Utility Function>);
+```
+* Run All The Registered Tests By
+```
+// for debug flag
+const bool debug = true;
+
+int main()
+{
+    // Run All
+    LTF::LTF_RUN_ALL(debug);
+    return 0;
+}
+```
+
+
+## Demo
+- Debug == False
+<br/>
+![false.png](./demo/false.png)
+- Debug == True
+<br/>
+![false.png](./demo/true.png)
+
 
 
 ## Features
-- feature 1
-- feature 2
+- 🧪 Simplicity: We understand the importance of clean and straightforward testing. "Little Test Framework" lets you define and execute tests with just a few lines of code, without overwhelming you with unnecessary complexities.
+
+- 🛠️ Macro-powered: Harness the power of macros to effortlessly define and manage your test cases. Using the LTF_TEST macro, you can easily create, organize, and run your tests, ensuring a smooth development process.
+
+- 📜 Test Discovery: The framework automates test discovery, saving you time and effort. It automatically locates and runs all registered tests, providing a comprehensive overview of your code's health.
+
+- 🚀 Efficient Execution: "Little Test Framework" optimizes the execution of your test suite, enabling rapid feedback loops during development. Spend less time waiting for tests to run and more time coding.
+
+- 📊 Clear Reporting: With minimalistic design principles in mind, the framework provides concise and informative test execution reports. Identify issues quickly and make informed decisions based on test results.
+
+
+
+
+## Installation Using CMake
+```
+cmake_minimum_required(VERSION 3.12)
+project(YourProjectName) # Replace "YourProjectName" with the actual name of your project
+
+# Set CMP0002 policy to NEW to suppress the warning
+cmake_policy(SET CMP0002 NEW)
+
+if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
+    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
+endif()
+
+## Fetch the content
+include(FetchContent)
+FetchContent_Declare(
+  LTF
+  GIT_REPOSITORY https://github.com/Serenity0204/Little-Test-Framework.git
+)
+FetchContent_MakeAvailable(LTF)
+
+## Linking
+ADD_EXECUTABLE(main main.cpp)
+TARGET_LINK_LIBRARIES(main PRIVATE LTF)
+```
 
 
 
@@ -87,5 +149,11 @@ int main()
     return 0;
 }
 ```
+
+
+## Design
+Can be found in https://github.com/Serenity0204/Little-Test-Framework/blob/master/design.txt
+
+
 
 
