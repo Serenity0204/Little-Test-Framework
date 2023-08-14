@@ -50,9 +50,9 @@ bool test_manager(bool debug = false)
 
 bool test_template(bool debug = false)
 {
-    LTF_TEST(test4, abc, test_utils1);
+    LTF_TEST(test4, test_utils1);
     if (LTF::LittleTestFramework::get_num_suites() != 4) return false;
-    LTF_TEST(test4, abcd, test_utils2);
+    LTF_TEST(test4, test_utils2);
     if (LTF::LittleTestFramework::get_num_suites() != 4) return false;
 
     if (debug)

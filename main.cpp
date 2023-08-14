@@ -46,15 +46,15 @@ inline LTF::LTFStatus test_utils_main4(bool debug = false)
     return LTF::LTFStatus(LTF::FAIL, __LINE__);
 }
 
-LTF_TEST(SUITE1, test1, test_utils_main1);
+LTF_TEST(SUITE1, test_utils_main1);
 
-LTF_TEST(SUITE2, test3, test_utils_main3);
+LTF_TEST(SUITE1, test_utils_main2);
 
-LTF_TEST(SUITE1, test2, test_utils_main2);
+LTF_TEST(SUITE1, test_utils_main4);
 
-LTF_TEST(SUITE1, test4, test_utils_main4);
+LTF_TEST(SUITE2, test_utils_main3);
 
-LTF_TEST(SUITE2, test1, test_utils_main4);
+LTF_TEST(SUITE2, test_utils_main4);
 
 const bool debug = true;
 

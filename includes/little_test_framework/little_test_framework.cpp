@@ -45,7 +45,7 @@ namespace LTF
                 outs << space << space << count << ":TEST NAME:" << flag.first << " ----> ";
                 if (flag.second.code == LTF::SUCCESS) outs << "[SUCCESS]";
                 if (flag.second.code == LTF::FAIL) outs << "[FAIL]";
-                if (debug && flag.second.code == LTF::FAIL) outs << " AT LINE:[" << flag.second.line << "]";
+                if (debug && flag.second.code == LTF::FAIL) outs << " AT LINE [" << flag.second.line << "]";
                 outs << "\n";
                 ++count;
             }
