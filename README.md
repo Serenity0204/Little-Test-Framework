@@ -20,12 +20,14 @@ LTF_TEST(<Test Suite Name>, <Related Utility Function>);
 * Run All The Registered Tests By
 ```
 // for debug flag
-const bool debug = true;
+const bool debug = false;
 
 int main()
 {
-    // Run All
-    LTF::LTF_RUN_ALL(debug);
+    // run all and output to the file
+    // LTF::LTF_RUN_ALL(debug, LTF::MODE::FILE, "../../output.txt");
+    // run all and output to the console
+    LTF::LTF_RUN_ALL(debug, LTF::MODE::CONSOLE);
     return 0;
 }
 ```
@@ -43,9 +45,133 @@ LTF::LTF_IGNORE_SUITES({<suite name 1 as tring>, <suite name 2 as string>, ...})
 
 ## Demo
 - Debug == False
-![false.png](./demo/false.png)
+```
+
+LTF RUNNING ALL 4 TEST SUITES:
+----------------------------------------------------------------------
+
+1.SUITE1:
+         RUNNING 3 TESTS FROM SUITE1
+----------------------------------------------------------------------
+         RUNNING...
+                  1.TEST NAME:test_utils_main1 ----> [SUCCESS]
+         RUNNING...
+                  2.TEST NAME:test_utils_main2 ----> [FAIL]
+         RUNNING...
+                  3.TEST NAME:test_utils_main4 ----> [SUCCESS]
+
+ TOTAL:
+         (2) TESTS SUCCESS
+         (1) TEST FAIL
+
+----------------------------------------------------------------------
+2.SUITE2:
+         RUNNING 2 TESTS FROM SUITE2
+----------------------------------------------------------------------
+         RUNNING...
+                  1.TEST NAME:test_utils_main3 ----> [SUCCESS]
+         RUNNING...
+                  2.TEST NAME:test_utils_main4 ----> [SUCCESS]
+
+ TOTAL:
+         (2) TESTS SUCCESS
+
+----------------------------------------------------------------------
+3.SUITE3:
+         RUNNING 1 TEST FROM SUITE3
+----------------------------------------------------------------------
+         RUNNING...
+                  1.TEST NAME:test_ignore1 ----> [SUCCESS]
+
+ TOTAL:
+         (1) TEST SUCCESS
+
+----------------------------------------------------------------------
+4.SUITE_HELLO:
+         RUNNING 1 TEST FROM SUITE_HELLO
+----------------------------------------------------------------------
+         RUNNING...
+                  1.TEST NAME:test_ignore2 ----> [FAIL]
+
+ TOTAL:
+         (1) TEST FAIL
+
+----------------------------------------------------------------------
+
+SUMMARY:
+         (5) TOTAL TESTS SUCCESS
+         (2) TOTAL TESTS FAIL
+
+
+--------------------------THE END OF TEST-----------------------------
+
+
+```
 - Debug == True
-![false.png](./demo/true.png)
+```
+
+LTF RUNNING ALL 4 TEST SUITES:
+----------------------------------------------------------------------  
+
+1.SUITE1:
+         RUNNING 3 TESTS FROM SUITE1
+----------------------------------------------------------------------  
+should be 120
+         RUNNING...
+                  1.TEST NAME:test_utils_main1 ----> [SUCCESS]
+         RUNNING...
+                  2.TEST NAME:test_utils_main2 ----> [FAIL] AT LINE [26]
+         RUNNING...
+                  3.TEST NAME:test_utils_main4 ----> [SUCCESS]
+
+ TOTAL:
+         (2) TESTS SUCCESS
+         (1) TEST FAIL
+
+----------------------------------------------------------------------  
+2.SUITE2:
+         RUNNING 2 TESTS FROM SUITE2
+----------------------------------------------------------------------  
+HI
+should be 120
+         RUNNING...
+                  1.TEST NAME:test_utils_main3 ----> [SUCCESS]
+         RUNNING...
+                  2.TEST NAME:test_utils_main4 ----> [SUCCESS]
+
+ TOTAL:
+         (2) TESTS SUCCESS
+
+----------------------------------------------------------------------  
+3.SUITE3:
+         RUNNING 1 TEST FROM SUITE3
+----------------------------------------------------------------------  
+         RUNNING...
+                  1.TEST NAME:test_ignore1 ----> [SUCCESS]
+
+ TOTAL:
+         (1) TEST SUCCESS
+
+----------------------------------------------------------------------
+4.SUITE_HELLO:
+         RUNNING 1 TEST FROM SUITE_HELLO
+----------------------------------------------------------------------
+         RUNNING...
+                  1.TEST NAME:test_ignore2 ----> [FAIL] AT LINE [58]
+
+ TOTAL:
+         (1) TEST FAIL
+
+----------------------------------------------------------------------
+
+SUMMARY:
+         (5) TOTAL TESTS SUCCESS
+         (2) TOTAL TESTS FAIL
+
+
+--------------------------THE END OF TEST-----------------------------
+
+```
 
 
 
@@ -169,7 +295,6 @@ LTF_TEST(SUITE3, test_ignore2);
 
 LTF_TEST(SUITE_HELLO, test_ignore2);
 
-
 const bool debug = false;
 
 int main()
@@ -179,9 +304,14 @@ int main()
 
     // ignore the entire suite by LTF::LTF_IGNORE_SUITES({<suite name 1 as tring>, <suite name 2 as string>, ...});
     // LTF::LTF_IGNORE_SUITES({"SUITE3", "SUITE2"});
-    LTF::LTF_RUN_ALL(debug);
+
+    // run all and output to file
+    // LTF::LTF_RUN_ALL(debug, LTF::MODE::FILE, "../../output.txt");
+    // run all and output to console
+    LTF::LTF_RUN_ALL(debug, LTF::MODE::CONSOLE);
     return 0;
 }
+
 
 ```
 

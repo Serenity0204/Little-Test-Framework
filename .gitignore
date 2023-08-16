@@ -82,3 +82,6 @@ googletest/
 .vs
 out/
 build/other/
+
+## for this project
+output.txt

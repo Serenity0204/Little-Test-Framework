@@ -5,6 +5,7 @@
 
 #include "../test_case/test_case.h"
 #include "../test_suite/test_suite.h"
+#include <fstream>
 #include <iostream>
 #include <map>
 #include <string>
@@ -14,7 +15,12 @@ namespace LTF
 {
     class TestSuite;
     class TestCase;
-    class LittleTestFramework;
+
+    enum MODE
+    {
+        CONSOLE = 0,
+        FILE = 1,
+    };
 
     // All static member
     class LittleTestFramework
@@ -23,6 +29,12 @@ namespace LTF
         // suite name vs suite
         static std::map<std::string, TestSuite> _suites;
         static std::size_t _num_tests;
+
+        static inline void output(const std::string& message, std::ofstream& outs, LTF::MODE mode = LTF::MODE::CONSOLE)
+        {
+            if (mode == LTF::MODE::FILE) outs << message;
+            if (mode == LTF::MODE::CONSOLE) std::cout << message;
+        }
 
     public:
         // CTORS
@@ -41,7 +53,7 @@ namespace LTF
         static std::map<std::string, TestSuite>& get() { return LittleTestFramework::_suites; }
 
         // main method to call to run all tests
-        static void run_all(bool debug = false, std::ostream& outs = std::cout);
+        static void run_all(bool debug = false, LTF::MODE mode = LTF::CONSOLE, const std::string& path = "");
 
         // remove
         static inline void clean() { LittleTestFramework::_suites.clear(); }

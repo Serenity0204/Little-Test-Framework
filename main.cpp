@@ -84,6 +84,10 @@ int main()
 
     // ignore the entire suite by LTF::LTF_IGNORE_SUITES({<suite name 1 as tring>, <suite name 2 as string>, ...});
     // LTF::LTF_IGNORE_SUITES({"SUITE3", "SUITE2"});
-    LTF::LTF_RUN_ALL(debug);
+
+    // run all and output to file
+    // LTF::LTF_RUN_ALL(debug, LTF::MODE::FILE, "../../output.txt");
+    // run all and output to console
+    LTF::LTF_RUN_ALL(debug, LTF::MODE::CONSOLE);
     return 0;
 }
