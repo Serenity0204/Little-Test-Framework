@@ -13,3 +13,9 @@ project structure:
 // TODO
 
 - Need to make test timer and time out
+
+#define LTF_LOG(message) LTF::LittleTestFramework::add_log(#message, __FUNCTION__)
+make a map of key: function name, value : vector of messages
+so when the add_log is called, it will find the key and update the vector
+and when run all, it will print the message accordingly
+all of these will be done in LTF class

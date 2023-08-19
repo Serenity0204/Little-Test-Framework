@@ -3,7 +3,6 @@
 
 #pragma once
 
-#include "../little_test_framework/little_test_framework.h"
 #include "../test_case/test_case.h"
 #include <iostream>
 #include <map>

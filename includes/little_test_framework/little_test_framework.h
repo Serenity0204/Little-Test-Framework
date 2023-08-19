@@ -13,9 +13,6 @@
 
 namespace LTF
 {
-    class TestSuite;
-    class TestCase;
-
     enum MODE
     {
         CONSOLE = 0,
