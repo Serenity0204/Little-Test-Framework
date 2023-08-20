@@ -5,6 +5,7 @@
 
 #include "../test_case/test_case.h"
 #include "../test_suite/test_suite.h"
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -25,6 +26,8 @@ namespace LTF
     private:
         // suite name vs suite
         static std::map<std::string, TestSuite> _suites;
+
+        static std::map<std::string, std::vector<std::string>> _messages;
         static std::size_t _num_tests;
 
         static inline void output(const std::string& message, std::ofstream& outs, LTF::MODE mode = LTF::MODE::CONSOLE)
@@ -56,6 +59,9 @@ namespace LTF
         static inline void clean() { LittleTestFramework::_suites.clear(); }
         static void ignore_suites(const std::vector<std::string>& suites);
         static void ignore_tests(const std::string& suite_name, const std::vector<std::string>& tests);
+
+        // log
+        static void log(const std::string& function, const std::string& message);
     };
 };
 #endif // LITTLE_TEST_FRAMEWORK_H

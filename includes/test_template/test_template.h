@@ -15,6 +15,9 @@ namespace LTF
         const bool debug = false;
     };
 
+// the macro for logging messages
+#define LTF_LOG(message) LTF::LittleTestFramework::log(__FUNCTION__, message)
+
 // TEST SUITE Associate to test function
 // if suite does not exist, create one and add the function into that suite and add it to the static manager
 // else get the existed suite, add the function, and then add it back to the static manager

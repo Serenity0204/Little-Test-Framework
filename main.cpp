@@ -1,4 +1,6 @@
 #include "includes/LTF.h"
+// import your files here
+
 #include <iostream>
 using namespace std;
 
@@ -18,6 +20,11 @@ unsigned long long factorial(int n)
 // inline LTF::LTFStatus <your utility function name>(bool debug = false)
 inline LTF::LTFStatus test_utils_main1(bool debug = false)
 {
+    if (debug)
+    {
+        LTF_LOG("hello this is a message 1");
+        LTF_LOG("hello this is a message 2");
+    }
     return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
 }
 
@@ -28,10 +35,8 @@ inline LTF::LTFStatus test_utils_main2(bool debug = false)
 
 inline LTF::LTFStatus test_utils_main3(bool debug = false)
 {
-    if (debug)
-    {
-        cout << "HI" << endl;
-    }
+    if (debug) LTF_LOG("HI");
+
     int a = 1 + 1;
     if (a == 2) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
     return LTF::LTFStatus(LTF::FAIL, __LINE__);
@@ -39,10 +44,8 @@ inline LTF::LTFStatus test_utils_main3(bool debug = false)
 
 inline LTF::LTFStatus test_utils_main4(bool debug = false)
 {
-    if (debug)
-    {
-        cout << "should be 120" << endl;
-    }
+    if (debug) LTF_LOG("should be 120");
+
     long long f = factorial(5);
     if (f == 120) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
     return LTF::LTFStatus(LTF::FAIL, __LINE__);
@@ -75,7 +78,7 @@ LTF_TEST(SUITE3, test_ignore2);
 
 LTF_TEST(SUITE_HELLO, test_ignore2);
 
-const bool debug = false;
+const bool debug = true;
 
 int main()
 {

@@ -40,139 +40,10 @@ LTF::LTF_IGNORE_TEST_CASES(<suite name as string>, {<test 1 as string>, <test 2 
 ```
 LTF::LTF_IGNORE_SUITES({<suite name 1 as tring>, <suite name 2 as string>, ...});
 ```
-
-
-
-## Demo
-- Debug == False
+* Log Your Messages By
 ```
-
-LTF RUNNING ALL 4 TEST SUITES:
-----------------------------------------------------------------------
-
-1.SUITE1:
-         RUNNING 3 TESTS FROM SUITE1
-----------------------------------------------------------------------
-         RUNNING...
-                  1.TEST NAME:test_utils_main1 ----> [SUCCESS]
-         RUNNING...
-                  2.TEST NAME:test_utils_main2 ----> [FAIL]
-         RUNNING...
-                  3.TEST NAME:test_utils_main4 ----> [SUCCESS]
-
- TOTAL:
-         (2) TESTS SUCCESS
-         (1) TEST FAIL
-
-----------------------------------------------------------------------
-2.SUITE2:
-         RUNNING 2 TESTS FROM SUITE2
-----------------------------------------------------------------------
-         RUNNING...
-                  1.TEST NAME:test_utils_main3 ----> [SUCCESS]
-         RUNNING...
-                  2.TEST NAME:test_utils_main4 ----> [SUCCESS]
-
- TOTAL:
-         (2) TESTS SUCCESS
-
-----------------------------------------------------------------------
-3.SUITE3:
-         RUNNING 1 TEST FROM SUITE3
-----------------------------------------------------------------------
-         RUNNING...
-                  1.TEST NAME:test_ignore1 ----> [SUCCESS]
-
- TOTAL:
-         (1) TEST SUCCESS
-
-----------------------------------------------------------------------
-4.SUITE_HELLO:
-         RUNNING 1 TEST FROM SUITE_HELLO
-----------------------------------------------------------------------
-         RUNNING...
-                  1.TEST NAME:test_ignore2 ----> [FAIL]
-
- TOTAL:
-         (1) TEST FAIL
-
-----------------------------------------------------------------------
-
-SUMMARY:
-         (5) TOTAL TESTS SUCCESS
-         (2) TOTAL TESTS FAIL
-
-
---------------------------THE END OF TEST-----------------------------
-
-
+LTF_LOG(<Your Message>)
 ```
-- Debug == True
-```
-
-LTF RUNNING ALL 4 TEST SUITES:
-----------------------------------------------------------------------  
-
-1.SUITE1:
-         RUNNING 3 TESTS FROM SUITE1
-----------------------------------------------------------------------  
-should be 120
-         RUNNING...
-                  1.TEST NAME:test_utils_main1 ----> [SUCCESS]
-         RUNNING...
-                  2.TEST NAME:test_utils_main2 ----> [FAIL] AT LINE [26]
-         RUNNING...
-                  3.TEST NAME:test_utils_main4 ----> [SUCCESS]
-
- TOTAL:
-         (2) TESTS SUCCESS
-         (1) TEST FAIL
-
-----------------------------------------------------------------------  
-2.SUITE2:
-         RUNNING 2 TESTS FROM SUITE2
-----------------------------------------------------------------------  
-HI
-should be 120
-         RUNNING...
-                  1.TEST NAME:test_utils_main3 ----> [SUCCESS]
-         RUNNING...
-                  2.TEST NAME:test_utils_main4 ----> [SUCCESS]
-
- TOTAL:
-         (2) TESTS SUCCESS
-
-----------------------------------------------------------------------  
-3.SUITE3:
-         RUNNING 1 TEST FROM SUITE3
-----------------------------------------------------------------------  
-         RUNNING...
-                  1.TEST NAME:test_ignore1 ----> [SUCCESS]
-
- TOTAL:
-         (1) TEST SUCCESS
-
-----------------------------------------------------------------------
-4.SUITE_HELLO:
-         RUNNING 1 TEST FROM SUITE_HELLO
-----------------------------------------------------------------------
-         RUNNING...
-                  1.TEST NAME:test_ignore2 ----> [FAIL] AT LINE [58]
-
- TOTAL:
-         (1) TEST FAIL
-
-----------------------------------------------------------------------
-
-SUMMARY:
-         (5) TOTAL TESTS SUCCESS
-         (2) TOTAL TESTS FAIL
-
-
---------------------------THE END OF TEST-----------------------------
-
-```
-
 
 
 ## Features
@@ -186,6 +57,9 @@ SUMMARY:
 
 - 📊 Clear Reporting: With minimalistic design principles in mind, the framework provides concise and informative test execution reports. Identify issues quickly and make informed decisions based on test results.
 
+- ⏸️ Flexible Test Skipping: The "Little Test Framework" allows you to ignore specific test cases or even entire test suites. This is particularly useful when certain tests are not applicable under certain conditions or during specific phases of development. By using the built-in skipping mechanism, you can focus on the relevant tests, ensuring efficient testing workflows without the need to comment out or remove test code.
+
+- 📝 Insightful Logging: The framework features a comprehensive log message system that provides detailed insights into the execution of each test case. During test runs, you can generate custom log messages using the provided logging functions. This allows you to trace the flow of test execution, inspect variable values, and diagnose potential issues more effectively.
 
 
 
@@ -215,11 +89,157 @@ TARGET_LINK_LIBRARIES(main PRIVATE LTF)
 ```
 
 
+## Demo
+- Debug == False
+```
+LTF RUNNING ALL 4 TEST SUITES:
+----------------------------------------------------------------------
 
-## Usage
+1.SUITE1:
+         RUNNING 3 TESTS FROM SUITE1
+----------------------------------------------------------------------
+         RUNNING...
+                  1.TEST NAME:test_utils_main1 ----> [SUCCESS]
+         RUNNING...
+                  2.TEST NAME:test_utils_main2 ----> [FAIL]
+         RUNNING...
+                  3.TEST NAME:test_utils_main4 ----> [SUCCESS]
+
+TOTAL:
+         (2) TESTS SUCCESS
+         (1) TEST FAIL
+
+----------------------------------------------------------------------
+2.SUITE2:
+         RUNNING 2 TESTS FROM SUITE2
+----------------------------------------------------------------------
+         RUNNING...
+                  1.TEST NAME:test_utils_main3 ----> [SUCCESS]
+         RUNNING...
+                  2.TEST NAME:test_utils_main4 ----> [SUCCESS]
+
+TOTAL:
+         (2) TESTS SUCCESS
+
+----------------------------------------------------------------------
+3.SUITE3:
+         RUNNING 1 TEST FROM SUITE3
+----------------------------------------------------------------------
+         RUNNING...
+                  1.TEST NAME:test_ignore1 ----> [SUCCESS]
+
+TOTAL:
+         (1) TEST SUCCESS
+
+----------------------------------------------------------------------
+4.SUITE_HELLO:
+         RUNNING 1 TEST FROM SUITE_HELLO
+----------------------------------------------------------------------
+         RUNNING...
+                  1.TEST NAME:test_ignore2 ----> [FAIL]
+
+TOTAL:
+         (1) TEST FAIL
+
+----------------------------------------------------------------------
+
+SUMMARY:
+         (7) TOTAL TESTS RUN
+         (5) TOTAL TESTS SUCCESS
+         (2) TOTAL TESTS FAIL
+
+
+--------------------------THE END OF TEST-----------------------------
+
+
+```
+
+
+- Debug == True
+```
+LTF RUNNING ALL 4 TEST SUITES:
+----------------------------------------------------------------------
+
+1.SUITE1:
+         RUNNING 3 TESTS FROM SUITE1
+----------------------------------------------------------------------
+         RUNNING...
+                  1.TEST NAME:test_utils_main1 ----> [SUCCESS]
+
+                  LOG MESSAGES FROM:test_utils_main1:
+                  1:hello this is a message 1
+                  2:hello this is a message 2
+         RUNNING...
+                  2.TEST NAME:test_utils_main2 ----> [FAIL] AT LINE [31]
+         RUNNING...
+                  3.TEST NAME:test_utils_main4 ----> [SUCCESS]
+
+                  LOG MESSAGE FROM:test_utils_main4:
+                  1:should be 120
+
+TOTAL:
+         (2) TESTS SUCCESS
+         (1) TEST FAIL
+
+----------------------------------------------------------------------
+2.SUITE2:
+         RUNNING 2 TESTS FROM SUITE2
+----------------------------------------------------------------------
+         RUNNING...
+                  1.TEST NAME:test_utils_main3 ----> [SUCCESS]
+
+                  LOG MESSAGE FROM:test_utils_main3:
+                  1:HI
+         RUNNING...
+                  2.TEST NAME:test_utils_main4 ----> [SUCCESS]
+
+                  LOG MESSAGE FROM:test_utils_main4:
+                  1:should be 120
+
+TOTAL:
+         (2) TESTS SUCCESS
+
+----------------------------------------------------------------------
+3.SUITE3:
+         RUNNING 1 TEST FROM SUITE3
+----------------------------------------------------------------------
+         RUNNING...
+                  1.TEST NAME:test_ignore1 ----> [SUCCESS]
+
+TOTAL:
+         (1) TEST SUCCESS
+
+----------------------------------------------------------------------
+4.SUITE_HELLO:
+         RUNNING 1 TEST FROM SUITE_HELLO
+----------------------------------------------------------------------
+         RUNNING...
+                  1.TEST NAME:test_ignore2 ----> [FAIL] AT LINE [59]
+
+TOTAL:
+         (1) TEST FAIL
+
+----------------------------------------------------------------------
+
+SUMMARY:
+         (7) TOTAL TESTS RUN
+         (5) TOTAL TESTS SUCCESS
+         (2) TOTAL TESTS FAIL
+
+
+--------------------------THE END OF TEST-----------------------------
+
+
+```
+
+
+
+## Example Usage
 ```
 #include <LTF.h>
 #include <iostream>
+// import your files here
+
 using namespace std;
 
 unsigned long long factorial(int n)
@@ -238,6 +258,11 @@ unsigned long long factorial(int n)
 // inline LTF::LTFStatus <your utility function name>(bool debug = false)
 inline LTF::LTFStatus test_utils_main1(bool debug = false)
 {
+    if (debug)
+    {
+        LTF_LOG("hello this is a message 1");
+        LTF_LOG("hello this is a message 2");
+    }
     return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
 }
 
@@ -248,10 +273,8 @@ inline LTF::LTFStatus test_utils_main2(bool debug = false)
 
 inline LTF::LTFStatus test_utils_main3(bool debug = false)
 {
-    if (debug)
-    {
-        cout << "HI" << endl;
-    }
+    if (debug) LTF_LOG("HI");
+
     int a = 1 + 1;
     if (a == 2) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
     return LTF::LTFStatus(LTF::FAIL, __LINE__);
@@ -259,10 +282,8 @@ inline LTF::LTFStatus test_utils_main3(bool debug = false)
 
 inline LTF::LTFStatus test_utils_main4(bool debug = false)
 {
-    if (debug)
-    {
-        cout << "should be 120" << endl;
-    }
+    if (debug) LTF_LOG("should be 120");
+
     long long f = factorial(5);
     if (f == 120) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
     return LTF::LTFStatus(LTF::FAIL, __LINE__);
@@ -295,7 +316,7 @@ LTF_TEST(SUITE3, test_ignore2);
 
 LTF_TEST(SUITE_HELLO, test_ignore2);
 
-const bool debug = false;
+const bool debug = true;
 
 int main()
 {
@@ -311,8 +332,6 @@ int main()
     LTF::LTF_RUN_ALL(debug, LTF::MODE::CONSOLE);
     return 0;
 }
-
-
 ```
 
 
