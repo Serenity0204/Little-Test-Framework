@@ -4,7 +4,7 @@ Little Test Framework(LTF), is a hassle-free C++ unit testing. Designed to make 
 
 
 ## Operations
-See the Usage for more comprehensive examples.
+See the Example Usage for more comprehensive examples.
 * Make Your Utility Functions Like 
 ```
 inline LTF::LTFStatus <your utility function name>(bool debug = false)
