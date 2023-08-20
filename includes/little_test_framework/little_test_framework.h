@@ -6,6 +6,7 @@
 #include "../test_case/test_case.h"
 #include "../test_suite/test_suite.h"
 #include <algorithm>
+#include <cassert>
 #include <fstream>
 #include <iostream>
 #include <map>
@@ -26,9 +27,10 @@ namespace LTF
     private:
         // suite name vs suite
         static std::map<std::string, TestSuite> _suites;
-
+        // for messages, function name vs vector of message
         static std::map<std::string, std::vector<std::string>> _messages;
-        static std::size_t _num_tests;
+        // for timing, function name vs time in ms
+        static std::map<std::string, double> _times;
 
         static inline void output(const std::string& message, std::ofstream& outs, LTF::MODE mode = LTF::MODE::CONSOLE)
         {
@@ -62,6 +64,9 @@ namespace LTF
 
         // log
         static void log(const std::string& function, const std::string& message);
+
+        // time
+        static void time(const std::string& function, double time_ns);
     };
 };
 #endif // LITTLE_TEST_FRAMEWORK_H

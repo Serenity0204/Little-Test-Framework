@@ -29,14 +29,17 @@ LTF::TestSuite& LTF::TestSuite::add(const TestCase& test_case)
     return *this;
 }
 
-std::map<std::string, LTF::LTFStatus>& LTF::TestSuite::run_all(bool debug, int& test_count)
+std::map<std::string, LTF::LTFStatus>& LTF::TestSuite::run_all(bool debug, int& test_count, std::map<std::string, double>& times)
 {
     this->_passed_flags.clear();
+    times.clear();
     for (const auto& test : this->_test_cases)
     {
         std::string name = test.first;
         TestCase test_case = test.second;
-        LTFStatus code = test_case.run(debug);
+        double time = 0;
+        LTFStatus code = test_case.run(debug, time);
+        times[name] = time;
         this->_passed_flags[name] = code;
     }
     test_count = this->_passed_flags.size();

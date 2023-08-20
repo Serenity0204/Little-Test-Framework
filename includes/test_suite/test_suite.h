@@ -30,7 +30,7 @@ namespace LTF
         TestSuite& add(const TestCase& test_case);
 
         // run all that will return a map of case name vs status
-        std::map<std::string, LTF::LTFStatus>& run_all(bool debug, int& test_count);
+        std::map<std::string, LTF::LTFStatus>& run_all(bool debug, int& test_count, std::map<std::string, double>& times);
 
         // getters
         inline const std::string& get_suite_name() const { return this->_suite_name; }

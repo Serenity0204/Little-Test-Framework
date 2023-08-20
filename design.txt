@@ -11,5 +11,3 @@ project structure:
     --CMakeLists.txt // cmake for this project
 
 // TODO
-
-- Need to make test timer and time out

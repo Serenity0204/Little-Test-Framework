@@ -28,9 +28,11 @@ namespace LTF
         this->_function = function;
     }
 
-    LTFStatus TestCase::run(bool debug)
+    LTFStatus TestCase::run(bool debug, double& time)
     {
         if (this->_function == nullptr) return LTFStatus();
+        std::chrono::duration<double, std::milli> elapsed = this->_time();
+        time = elapsed.count();
         return this->_function(debug);
     }
 };

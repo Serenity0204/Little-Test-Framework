@@ -17,7 +17,8 @@ bool test_suite1(bool debug = false)
     suite.add({"test1", test_utils1}).add({"test2", test_utils2}).add({"test3", test_utils3});
     LTF::LittleTestFramework::add(suite);
     int size = 0;
-    auto map = suite.run_all(false, size);
+    std::map<std::string, double> times;
+    auto map = suite.run_all(false, size, times);
     int i = 0;
     for (auto x : map)
     {

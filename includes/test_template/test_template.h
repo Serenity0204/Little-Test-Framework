@@ -18,6 +18,9 @@ namespace LTF
 // the macro for logging messages
 #define LTF_LOG(message) LTF::LittleTestFramework::log(__FUNCTION__, message)
 
+// time macro for timing in ns
+#define LTF_TIME(time_ns) LTF::LittleTestFramework::time(__FUNCTION__, time_ns)
+
 // TEST SUITE Associate to test function
 // if suite does not exist, create one and add the function into that suite and add it to the static manager
 // else get the existed suite, add the function, and then add it back to the static manager

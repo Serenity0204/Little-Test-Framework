@@ -2,6 +2,8 @@
 #define TEST_CASE_H
 #pragma once
 
+#include <chrono>
+#include <functional>
 #include <string>
 
 namespace LTF
@@ -33,6 +35,22 @@ namespace LTF
         std::string _test_name;
         LTFStatus (*_function)(bool debug);
 
+        // Function to time other function, in unit of nanoseconds
+        inline std::chrono::duration<double, std::nano> _time()
+        {
+            // Start the timer
+            auto start = std::chrono::high_resolution_clock::now();
+
+            // Call the input function in debug = false
+            _function(false);
+
+            // Stop the timer
+            auto end = std::chrono::high_resolution_clock::now();
+
+            // Calculate the elapsed time in milliseconds
+            return end - start;
+        }
+
     public:
         // CTORS
         TestCase();
@@ -40,7 +58,7 @@ namespace LTF
         ~TestCase();
 
         // call the function
-        LTFStatus run(bool debug = false);
+        LTFStatus run(bool debug, double& time);
 
         // getters and setters
         void set_test_name(const std::string& name);

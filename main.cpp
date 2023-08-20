@@ -30,6 +30,9 @@ inline LTF::LTFStatus test_utils_main1(bool debug = false)
 
 inline LTF::LTFStatus test_utils_main2(bool debug = false)
 {
+    LTF_TIME(180);
+    double result = 0.0;
+    for (int i = 0; i < 100000000; ++i) result += (true ? 1.0 : -1.0) * i;
     return LTF::LTFStatus(LTF::FAIL, __LINE__);
 }
 
