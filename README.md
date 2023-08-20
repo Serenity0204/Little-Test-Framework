@@ -1,6 +1,6 @@
 
 # Little Test Framework (LTF)
-Little Test Framework(LTF), is a hassle-free C++ unit testing. Designed to make your testing experience efficient and effective, this framework provides a minimalistic approach while maintaining powerful testing capabilities.
+Little Test Framework(LTF), is a hassle-free C++ unit testing framework. Designed to make your testing experience efficient and effective, this framework provides a minimalistic approach while maintaining powerful testing capabilities.
 
 
 ## Operations
