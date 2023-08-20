@@ -68,9 +68,6 @@ LTF_LOG(<Your Message>)
 cmake_minimum_required(VERSION 3.12)
 project(YourProjectName) # Replace "YourProjectName" with the actual name of your project
 
-# Set CMP0002 policy to NEW to suppress the warning
-cmake_policy(SET CMP0002 NEW)
-
 if(CMAKE_CXX_COMPILER_ID MATCHES GNU)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
 endif()
