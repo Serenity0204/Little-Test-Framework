@@ -58,7 +58,13 @@ namespace LTF
         static void run_all(bool debug = false, LTF::MODE mode = LTF::CONSOLE, const std::string& path = "");
 
         // remove
-        static inline void clean() { LittleTestFramework::_suites.clear(); }
+        static inline void clean()
+        {
+            LittleTestFramework::_suites.clear();
+            LittleTestFramework::_messages.clear();
+            LittleTestFramework::_times.clear();
+        }
+
         static void ignore_suites(const std::vector<std::string>& suites);
         static void ignore_tests(const std::string& suite_name, const std::vector<std::string>& tests);
 
