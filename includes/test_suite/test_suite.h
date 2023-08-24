@@ -15,9 +15,9 @@ namespace LTF
     {
     private:
         // test name vs test case, test name vs pass or not
-        std::string _suite_name;
-        std::map<std::string, TestCase> _test_cases;
-        std::map<std::string, LTF::LTFStatus> _passed_flags;
+        std::string m_suite_name;
+        std::map<std::string, TestCase> m_test_cases;
+        std::map<std::string, LTF::LTFStatus> m_passed_flags;
 
     public:
         // CTORS
@@ -33,21 +33,21 @@ namespace LTF
         std::map<std::string, LTF::LTFStatus>& run_all(bool debug, int& test_count, std::map<std::string, double>& times);
 
         // getters
-        inline const std::string& get_suite_name() const { return this->_suite_name; }
-        inline std::size_t get_num_tests() const { return this->_test_cases.size(); }
+        inline const std::string& get_suite_name() const { return this->m_suite_name; }
+        inline std::size_t get_num_tests() const { return this->m_test_cases.size(); }
 
         // print all of the cases's name
         void print() const
         {
             std::cout << "test cases:" << std::endl;
-            for (const auto& test : this->_test_cases) std::cout << "name:" << test.first << std::endl;
+            for (const auto& test : this->m_test_cases) std::cout << "name:" << test.first << std::endl;
             std::cout << std::endl;
         }
 
         // remove test cases
         inline void ignore_tests(const std::vector<std::string>& tests)
         {
-            for (const std::string& test : tests) this->_test_cases.erase(test);
+            for (const std::string& test : tests) this->m_test_cases.erase(test);
         }
     };
 

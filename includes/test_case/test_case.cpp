@@ -4,14 +4,14 @@ namespace LTF
 {
     TestCase::TestCase()
     {
-        this->_function = nullptr;
-        this->_test_name = "";
+        this->m_function = nullptr;
+        this->m_test_name = "";
     }
 
     TestCase::TestCase(const std::string& name, LTFStatus (*function)(bool debug))
     {
-        this->_test_name = name;
-        this->_function = function;
+        this->m_test_name = name;
+        this->m_function = function;
     }
 
     TestCase::~TestCase()
@@ -20,19 +20,19 @@ namespace LTF
 
     void TestCase::set_test_name(const std::string& name)
     {
-        this->_test_name = name;
+        this->m_test_name = name;
     }
 
     void TestCase::set_test_function(LTFStatus (*function)(bool debug))
     {
-        this->_function = function;
+        this->m_function = function;
     }
 
     LTFStatus TestCase::run(bool debug, double& time)
     {
-        if (this->_function == nullptr) return LTFStatus();
-        std::chrono::duration<double, std::milli> elapsed = this->_time();
+        if (this->m_function == nullptr) return LTFStatus();
+        std::chrono::duration<double, std::milli> elapsed = this->m_time();
         time = elapsed.count();
-        return this->_function(debug);
+        return this->m_function(debug);
     }
 };

@@ -32,17 +32,17 @@ namespace LTF
     class TestCase
     {
     private:
-        std::string _test_name;
-        LTFStatus (*_function)(bool debug);
+        std::string m_test_name;
+        LTFStatus (*m_function)(bool debug);
 
         // Function to time other function, in unit of nanoseconds
-        inline std::chrono::duration<double, std::nano> _time()
+        inline std::chrono::duration<double, std::nano> m_time()
         {
             // Start the timer
             auto start = std::chrono::high_resolution_clock::now();
 
             // Call the input function in debug = false
-            _function(false);
+            m_function(false);
 
             // Stop the timer
             auto end = std::chrono::high_resolution_clock::now();
@@ -63,7 +63,7 @@ namespace LTF
         // getters and setters
         void set_test_name(const std::string& name);
         void set_test_function(LTFStatus (*function)(bool debug));
-        inline const std::string& get_test_name() const { return this->_test_name; }
+        inline const std::string& get_test_name() const { return this->m_test_name; }
     };
 };
 #endif // TEST_CASE_H

@@ -26,11 +26,11 @@ namespace LTF
     {
     private:
         // suite name vs suite
-        static std::map<std::string, TestSuite> _suites;
+        static std::map<std::string, TestSuite> s_suites;
         // for messages, function name vs vector of message
-        static std::map<std::string, std::vector<std::string>> _messages;
+        static std::map<std::string, std::vector<std::string>> s_messages;
         // for timing, function name vs time in ms
-        static std::map<std::string, double> _times;
+        static std::map<std::string, double> s_times;
 
         static inline void output(const std::string& message, std::ofstream& outs, LTF::MODE mode = LTF::MODE::CONSOLE)
         {
@@ -49,10 +49,10 @@ namespace LTF
         // getters
         static bool suite_exists(const std::string& suite_name);
         static TestSuite& get_suite(const std::string& suite_name);
-        static inline std::size_t get_num_suites() { return LittleTestFramework::_suites.size(); }
+        static inline std::size_t get_num_suites() { return LittleTestFramework::s_suites.size(); }
 
         // for testing
-        static std::map<std::string, TestSuite>& get() { return LittleTestFramework::_suites; }
+        static std::map<std::string, TestSuite>& get() { return LittleTestFramework::s_suites; }
 
         // main method to call to run all tests
         static void run_all(bool debug = false, LTF::MODE mode = LTF::CONSOLE, const std::string& path = "");
@@ -60,9 +60,9 @@ namespace LTF
         // remove
         static inline void clean()
         {
-            LittleTestFramework::_suites.clear();
-            LittleTestFramework::_messages.clear();
-            LittleTestFramework::_times.clear();
+            LittleTestFramework::s_suites.clear();
+            LittleTestFramework::s_messages.clear();
+            LittleTestFramework::s_times.clear();
         }
 
         static void ignore_suites(const std::vector<std::string>& suites);

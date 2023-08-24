@@ -1,8 +1,8 @@
 #include "little_test_framework.h"
 
-std::map<std::string, LTF::TestSuite> LTF::LittleTestFramework::_suites;
-std::map<std::string, std::vector<std::string>> LTF::LittleTestFramework::_messages;
-std::map<std::string, double> LTF::LittleTestFramework::_times;
+std::map<std::string, LTF::TestSuite> LTF::LittleTestFramework::s_suites;
+std::map<std::string, std::vector<std::string>> LTF::LittleTestFramework::s_messages;
+std::map<std::string, double> LTF::LittleTestFramework::s_times;
 
 LTF::LittleTestFramework::LittleTestFramework()
 {
@@ -14,22 +14,22 @@ LTF::LittleTestFramework::~LittleTestFramework()
 
 void LTF::LittleTestFramework::add(const LTF::TestSuite& suite)
 {
-    LTF::LittleTestFramework::_suites[suite.get_suite_name()] = suite;
+    LTF::LittleTestFramework::s_suites[suite.get_suite_name()] = suite;
 }
 
 bool LTF::LittleTestFramework::suite_exists(const std::string& suite_name)
 {
-    return LTF::LittleTestFramework::_suites.count(suite_name) > 0;
+    return LTF::LittleTestFramework::s_suites.count(suite_name) > 0;
 }
 
 LTF::TestSuite& LTF::LittleTestFramework::get_suite(const std::string& suite_name)
 {
-    return LTF::LittleTestFramework::_suites[suite_name];
+    return LTF::LittleTestFramework::s_suites[suite_name];
 }
 
 void LTF::LittleTestFramework::ignore_suites(const std::vector<std::string>& suites)
 {
-    for (const std::string& suite : suites) LTF::LittleTestFramework::_suites.erase(suite);
+    for (const std::string& suite : suites) LTF::LittleTestFramework::s_suites.erase(suite);
 }
 
 void LTF::LittleTestFramework::ignore_tests(const std::string& suite_name, const std::vector<std::string>& tests)
@@ -64,7 +64,7 @@ void LTF::LittleTestFramework::run_all(bool debug, MODE mode, const std::string&
     // count the number of tests and suites
     std::vector<std::size_t> tests_count;
     std::size_t suites_count = 0;
-    for (auto& suite : LTF::LittleTestFramework::_suites)
+    for (auto& suite : LTF::LittleTestFramework::s_suites)
     {
         tests_count.push_back(suite.second.get_num_tests());
         ++suites_count;
@@ -75,7 +75,7 @@ void LTF::LittleTestFramework::run_all(bool debug, MODE mode, const std::string&
 
     int i = 0;
     int success_total = 0, fail_total = 0;
-    for (auto& suite : LTF::LittleTestFramework::_suites)
+    for (auto& suite : LTF::LittleTestFramework::s_suites)
     {
         LTF::LittleTestFramework::output(std::to_string(i + 1) + "." + suite.first + ":\n", outs, mode);
 
@@ -100,15 +100,15 @@ void LTF::LittleTestFramework::run_all(bool debug, MODE mode, const std::string&
             assert(times.count(flag.first) > 0);
 
             // if timed
-            if (LTF::LittleTestFramework::_times.count(flag.first) > 0)
+            if (LTF::LittleTestFramework::s_times.count(flag.first) > 0)
             {
                 // if actual is greater than or equal to expected
-                if (LTF::LittleTestFramework::_times[flag.first] <= times[flag.first])
+                if (LTF::LittleTestFramework::s_times[flag.first] <= times[flag.first])
                 {
                     ++fail_count;
                     result += "[FAIL]";
                     if (debug) result += " AT LINE [" + std::to_string(flag.second.line) + "]";
-                    result += "\n" + SPACE + SPACE + SPACE + "TIME LIMIT EXCEEDED: EXPECTED LESS THAN " + std::to_string(_times[flag.first]) + " NANOSECONDS";
+                    result += "\n" + SPACE + SPACE + SPACE + "TIME LIMIT EXCEEDED: EXPECTED LESS THAN " + std::to_string(s_times[flag.first]) + " NANOSECONDS";
                     timed = true;
                 }
             }
@@ -139,9 +139,9 @@ void LTF::LittleTestFramework::run_all(bool debug, MODE mode, const std::string&
             LTF::LittleTestFramework::output(std::string(", TIME:") + std::to_string(nanoseconds) + " NANOSECONDS\n", outs, mode);
 
             // if there's log message then start outputting them
-            if (LTF::LittleTestFramework::_messages.count(flag.first))
+            if (LTF::LittleTestFramework::s_messages.count(flag.first))
             {
-                std::vector<std::string> messages = LTF::LittleTestFramework::_messages[flag.first];
+                std::vector<std::string> messages = LTF::LittleTestFramework::s_messages[flag.first];
                 std::string messages_output = "";
                 // concat messages
                 for (int i = 0; i < messages.size(); ++i) messages_output += SPACE + SPACE + std::to_string(i + 1) + ":" + messages[i] + "\n";
@@ -180,23 +180,23 @@ void LTF::LittleTestFramework::run_all(bool debug, MODE mode, const std::string&
 void LTF::LittleTestFramework::log(const std::string& function, const std::string& message)
 {
     // if the key exists, then get the vector
-    if (LTF::LittleTestFramework::_messages.count(function) > 0)
+    if (LTF::LittleTestFramework::s_messages.count(function) > 0)
     {
         // check if message already exists, same message should not be output twice anyways
-        bool exist = std::find(LTF::LittleTestFramework::_messages[function].begin(), LTF::LittleTestFramework::_messages[function].end(), message) != LTF::LittleTestFramework::_messages[function].end();
+        bool exist = std::find(LTF::LittleTestFramework::s_messages[function].begin(), LTF::LittleTestFramework::s_messages[function].end(), message) != LTF::LittleTestFramework::s_messages[function].end();
         if (exist) return;
         // insert if does not exist
-        LTF::LittleTestFramework::_messages[function].push_back(message);
+        LTF::LittleTestFramework::s_messages[function].push_back(message);
         return;
     }
     std::vector<std::string> newMessage = {message};
-    LTF::LittleTestFramework::_messages[function] = newMessage;
+    LTF::LittleTestFramework::s_messages[function] = newMessage;
 }
 
 void LTF::LittleTestFramework::time(const std::string& function, double time_ns)
 {
     // if exists, then don't add
-    if (LTF::LittleTestFramework::_times.count(function) > 0) return;
+    if (LTF::LittleTestFramework::s_times.count(function) > 0) return;
     // else add
-    LTF::LittleTestFramework::_times[function] = time_ns;
+    LTF::LittleTestFramework::s_times[function] = time_ns;
 }
