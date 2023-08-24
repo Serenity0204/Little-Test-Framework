@@ -22,6 +22,7 @@ namespace LTF
         {
             if (Singleton<T>::s_instance == nullptr) return;
             delete Singleton<T>::s_instance;
+            Singleton<T>::s_instance = nullptr;
         }
 
         inline static T* instance()
