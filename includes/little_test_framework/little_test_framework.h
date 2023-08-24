@@ -3,6 +3,7 @@
 
 #pragma once
 
+#include "../singleton/singleton.h"
 #include "../test_case/test_case.h"
 #include "../test_suite/test_suite.h"
 #include <algorithm>
@@ -21,58 +22,64 @@ namespace LTF
         FILE = 1,
     };
 
-    // All static member
+    // implement Singleton design pattern
     class LittleTestFramework
     {
     private:
-        // suite name vs suite
-        static std::map<std::string, TestSuite> s_suites;
-        // for messages, function name vs vector of message
-        static std::map<std::string, std::vector<std::string>> s_messages;
-        // for timing, function name vs time in ms
-        static std::map<std::string, double> s_times;
+        friend class Singleton<LTF::LittleTestFramework>;
 
-        static inline void output(const std::string& message, std::ofstream& outs, LTF::MODE mode = LTF::MODE::CONSOLE)
+    private:
+        // suite name vs suite
+        std::map<std::string, TestSuite> m_suites;
+        // for messages, function name vs vector of message
+        std::map<std::string, std::vector<std::string>> m_messages;
+        // for timing, function name vs time in ms
+        std::map<std::string, double> m_times;
+
+        inline static void output(const std::string& message, std::ofstream& outs, LTF::MODE mode = LTF::MODE::CONSOLE)
         {
             if (mode == LTF::MODE::FILE) outs << message;
             if (mode == LTF::MODE::CONSOLE) std::cout << message;
         }
 
-    public:
+    private:
         // CTORS
         LittleTestFramework();
+        LittleTestFramework(const LittleTestFramework& rhs) = delete;
+        LittleTestFramework& operator=(const LittleTestFramework& rhs) = delete;
         ~LittleTestFramework();
 
+    public:
         // add suite by suite name vs suite
-        static void add(const TestSuite& suite);
+        void add(const TestSuite& suite);
 
         // getters
-        static bool suite_exists(const std::string& suite_name);
-        static TestSuite& get_suite(const std::string& suite_name);
-        static inline std::size_t get_num_suites() { return LittleTestFramework::s_suites.size(); }
+        bool suite_exists(const std::string& suite_name);
+        TestSuite& get_suite(const std::string& suite_name);
+        inline std::size_t get_num_suites() { return this->m_suites.size(); }
 
         // for testing
-        static std::map<std::string, TestSuite>& get() { return LittleTestFramework::s_suites; }
+        std::map<std::string, TestSuite>& get() { return this->m_suites; }
 
         // main method to call to run all tests
-        static void run_all(bool debug = false, LTF::MODE mode = LTF::CONSOLE, const std::string& path = "");
+        void run_all(bool debug = false, LTF::MODE mode = LTF::CONSOLE, const std::string& path = "");
 
         // remove
-        static inline void clean()
+        inline void clean()
         {
-            LittleTestFramework::s_suites.clear();
-            LittleTestFramework::s_messages.clear();
-            LittleTestFramework::s_times.clear();
+            this->m_suites.clear();
+            this->m_messages.clear();
+            this->m_times.clear();
         }
 
-        static void ignore_suites(const std::vector<std::string>& suites);
-        static void ignore_tests(const std::string& suite_name, const std::vector<std::string>& tests);
+        void ignore_suites(const std::vector<std::string>& suites);
+        void ignore_tests(const std::string& suite_name, const std::vector<std::string>& tests);
 
         // log
-        static void log(const std::string& function, const std::string& message);
+        void log(const std::string& function, const std::string& message);
 
         // time
-        static void time(const std::string& function, double time_ns);
+        void time(const std::string& function, double time_ns);
     };
 };
 #endif // LITTLE_TEST_FRAMEWORK_H

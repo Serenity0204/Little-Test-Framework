@@ -15,7 +15,7 @@ bool test_suite1(bool debug = false)
 {
     LTF::TestSuite suite("test1");
     suite.add({"test1", test_utils1}).add({"test2", test_utils2}).add({"test3", test_utils3});
-    LTF::LittleTestFramework::add(suite);
+    LTF::Singleton<LTF::LittleTestFramework>::instance()->add(suite);
     int size = 0;
     std::map<std::string, double> times;
     auto map = suite.run_all(false, size, times);
@@ -39,34 +39,34 @@ bool test_suite1(bool debug = false)
 bool test_manager(bool debug = false)
 {
     LTF::TestSuite suite1("test2");
-    LTF::LittleTestFramework::add(suite1);
-    if (LTF::LittleTestFramework::get_num_suites() != 2) return false;
+    LTF::Singleton<LTF::LittleTestFramework>::instance()->add(suite1);
+    if (LTF::Singleton<LTF::LittleTestFramework>::instance()->get_num_suites() != 2) return false;
     LTF::TestSuite suite2("test2");
-    LTF::LittleTestFramework::add(suite1);
-    if (LTF::LittleTestFramework::get_num_suites() != 2) return false;
+    LTF::Singleton<LTF::LittleTestFramework>::instance()->add(suite1);
+    if (LTF::Singleton<LTF::LittleTestFramework>::instance()->get_num_suites() != 2) return false;
     LTF::TestSuite suite3("test3");
-    LTF::LittleTestFramework::add(suite3);
-    if (LTF::LittleTestFramework::get_num_suites() != 3) return false;
+    LTF::Singleton<LTF::LittleTestFramework>::instance()->add(suite3);
+    if (LTF::Singleton<LTF::LittleTestFramework>::instance()->get_num_suites() != 3) return false;
     return true;
 }
 
 bool test_template(bool debug = false)
 {
     LTF_TEST(test4, test_utils1);
-    if (LTF::LittleTestFramework::get_num_suites() != 4) return false;
+    if (LTF::Singleton<LTF::LittleTestFramework>::instance()->get_num_suites() != 4) return false;
     LTF_TEST(test4, test_utils2);
-    if (LTF::LittleTestFramework::get_num_suites() != 4) return false;
+    if (LTF::Singleton<LTF::LittleTestFramework>::instance()->get_num_suites() != 4) return false;
 
     if (debug)
     {
-        auto m = LTF::LittleTestFramework::get();
+        auto m = LTF::Singleton<LTF::LittleTestFramework>::instance()->get();
         for (const auto& x : m)
         {
             cout << x.first << endl;
             x.second.print();
         }
     }
-    if (LTF::LittleTestFramework::get_suite("test4").get_num_tests() != 2) return false;
+    if (LTF::Singleton<LTF::LittleTestFramework>::instance()->get_suite("test4").get_num_tests() != 2) return false;
     return true;
 }
 

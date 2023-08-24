@@ -1,6 +1,6 @@
 
 # Little Test Framework (LTF)
-Little Test Framework(LTF), is a hassle-free C++ unit testing framework. Designed to make your testing experience efficient and effective, this framework provides a minimalistic approach while maintaining powerful testing capabilities.
+Little Test Framework(LTF), is a hassle-free, light weight(617 lines of code ONLY) C++ unit testing framework. Designed to make your testing experience efficient and effective, this framework provides a minimalistic approach while maintaining powerful testing capabilities.
 
 
 ## Operations
@@ -56,6 +56,8 @@ LTF_TIME(<expected time in nanoseconds>);
 - 🛠️ Macro-powered: Harness the power of macros to effortlessly define and manage your test cases. Using the "LTF_TEST" macro, you can easily create, organize, and run your tests, ensuring a smooth development process.
 
 - 📜 Test Discovery: The framework automates test discovery, saving you time and effort. It automatically locates and runs all registered tests, providing a comprehensive overview of your code's health.
+
+- 🏗️ Singleton Design: Benefit from the Singleton design pattern implementation in LTF, enhancing code organization and promoting effective testing practices.
 
 - 🚀 Efficient Execution: "Little Test Framework" optimizes the execution of your test suite, enabling rapid feedback loops during development. Spend less time waiting for tests to run and more time coding.
 
