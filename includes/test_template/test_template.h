@@ -16,10 +16,10 @@ namespace LTF
     };
 
 // the macro for logging messages
-#define LTF_LOG(message) LTF::Singleton<LTF::LittleTestFramework>::instance()->log(__FUNCTION__, message)
+#define LTF_LOG(message) LTF::Singleton<LTF::LittleTestFramework>::instance().log(__FUNCTION__, message)
 
 // time macro for timing in ns
-#define LTF_TIME(time_ns) LTF::Singleton<LTF::LittleTestFramework>::instance()->time(__FUNCTION__, time_ns)
+#define LTF_TIME(time_ns) LTF::Singleton<LTF::LittleTestFramework>::instance().time(__FUNCTION__, time_ns)
 
 // TEST SUITE Associate to test function
 // if suite does not exist, create one and add the function into that suite and add it to the manager through singleton instance
@@ -30,18 +30,18 @@ namespace LTF
     {                                                                                                                                 \
         TestRegistration_##suite_name##_##test_case()                                                                                 \
         {                                                                                                                             \
-            if (LTF::Singleton<LTF::LittleTestFramework>::instance()->suite_exists(#suite_name))                                      \
+            if (LTF::Singleton<LTF::LittleTestFramework>::instance().suite_exists(#suite_name))                                       \
             {                                                                                                                         \
                 LTF::TestCase test = LTF::TestCase(#test_case, test_case);                                                            \
-                LTF::TestSuite suite = LTF::Singleton<LTF::LittleTestFramework>::instance()->get_suite(#suite_name).add(test);        \
-                LTF::Singleton<LTF::LittleTestFramework>::instance()->add(suite);                                                     \
+                LTF::TestSuite suite = LTF::Singleton<LTF::LittleTestFramework>::instance().get_suite(#suite_name).add(test);         \
+                LTF::Singleton<LTF::LittleTestFramework>::instance().add(suite);                                                      \
                 if (LTF::LTFDebug::debug) std::cout << #suite_name << " exists and created " << #test_case << std::endl;              \
                 return;                                                                                                               \
             }                                                                                                                         \
                                                                                                                                       \
             LTF::TestSuite suite(#suite_name);                                                                                        \
             suite.add(LTF::TestCase(#test_case, test_case));                                                                          \
-            LTF::Singleton<LTF::LittleTestFramework>::instance()->add(suite);                                                         \
+            LTF::Singleton<LTF::LittleTestFramework>::instance().add(suite);                                                          \
             if (LTF::LTFDebug::debug) std::cout << #suite_name << " does not exist and created self and " << #test_case << std::endl; \
         }                                                                                                                             \
     } g_TestRegistration_##suite_name##_##test_case;
@@ -49,21 +49,20 @@ namespace LTF
     // Run All
     inline void LTF_RUN_ALL(bool debug = false, MODE mode = LTF::CONSOLE, const std::string& path = "")
     {
-        LTF::Singleton<LTF::LittleTestFramework>::instance()->run_all(debug, mode, path);
-        LTF::Singleton<LTF::LittleTestFramework>::instance()->clean();
-        LTF::Singleton<LTF::LittleTestFramework>::destroy();
+        LTF::Singleton<LTF::LittleTestFramework>::instance().run_all(debug, mode, path);
+        LTF::Singleton<LTF::LittleTestFramework>::instance().clean();
     }
 
     // Ignore test suites
     inline void LTF_IGNORE_SUITES(const std::vector<std::string>& ignored_suites)
     {
-        LTF::Singleton<LTF::LittleTestFramework>::instance()->ignore_suites(ignored_suites);
+        LTF::Singleton<LTF::LittleTestFramework>::instance().ignore_suites(ignored_suites);
     }
 
     // Ignore test cases by test suites
     inline void LTF_IGNORE_TEST_CASES(const std::string& suite_name, const std::vector<std::string>& ignored_tests)
     {
-        LTF::Singleton<LTF::LittleTestFramework>::instance()->ignore_tests(suite_name, ignored_tests);
+        LTF::Singleton<LTF::LittleTestFramework>::instance().ignore_tests(suite_name, ignored_tests);
     }
 };
 

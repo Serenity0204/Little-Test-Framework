@@ -14,26 +14,14 @@ namespace LTF
         Singleton(const Singleton<T>& rhs) = delete;
         Singleton<T>& operator=(const Singleton<T>& rhs) = delete;
 
-    private:
-        static T* s_instance;
-
     public:
-        inline static void destroy()
+        // the only allowed access point
+        inline static T& instance()
         {
-            if (Singleton<T>::s_instance == nullptr) return;
-            delete Singleton<T>::s_instance;
-            Singleton<T>::s_instance = nullptr;
-        }
-
-        inline static T* instance()
-        {
-            if (Singleton<T>::s_instance == nullptr) Singleton<T>::s_instance = new T();
-            return Singleton<T>::s_instance;
+            static T s_instance;
+            return s_instance;
         }
     };
-
-    template <class T>
-    T* Singleton<T>::s_instance = nullptr;
 };
 
 #endif // SINGLETON_H

@@ -35,7 +35,7 @@ endif()
 
 
 ## Change ON <-> OFF for testing
-option(BUILD_TESTS "Build tests" OFF)
+option(BUILD_TESTS "Build tests" ON)
 
 if(BUILD_TESTS)
     ## ------------------------------------
