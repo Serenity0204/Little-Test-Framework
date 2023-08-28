@@ -35,7 +35,7 @@ endif()
 
 
 ## Change ON <-> OFF for testing
-option(BUILD_TESTS "Build tests" ON)
+option(BUILD_TESTS "Build tests" OFF)
 
 if(BUILD_TESTS)
     ## ------------------------------------
@@ -49,9 +49,6 @@ if(BUILD_TESTS)
     FetchContent_MakeAvailable(googletest)
     endif()
         
-    # GoogleTest requires at least C++14
-    set(CMAKE_CXX_STANDARD 14)
-    set(CMAKE_CXX_STANDARD_REQUIRED OFF)
     # ------------------------------------
 
 
@@ -82,7 +79,9 @@ endif()
 
 
 
-set(CMAKE_CXX_STANDARD 14)
+# GoogleTest requires at least C++14
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 # Install library target
 install(TARGETS LTF
