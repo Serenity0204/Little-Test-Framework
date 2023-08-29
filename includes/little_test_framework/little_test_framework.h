@@ -75,8 +75,8 @@ namespace LTF
         void ignore_suites(const std::vector<std::string>& suites);
         void ignore_tests(const std::string& suite_name, const std::vector<std::string>& tests);
 
-        // log
-        void log(const std::string& function, const std::string& message);
+        // message
+        void message(const std::string& function, const std::string& message);
 
         // time
         void time(const std::string& function, double time_ns);
