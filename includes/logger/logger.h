@@ -44,12 +44,11 @@ namespace LTF
         ~Logger();
 
     private:
-        // std::map<std::string, std::vector<std::string>> m_messages;
-
+        // class attributes
     public:
-        void debug(const std::string& message, const Info& info)
-        {
-        }
+        void log(LTF::Logger::Level level, const std::string& message, const Info& info);
+        void set_level(LTF::Logger::Level level);
+        void set_path(const std::string& path);
     };
 };
 
