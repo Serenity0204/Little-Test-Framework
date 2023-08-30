@@ -61,9 +61,9 @@ namespace LTF
     private:
         // helper methods
         std::string level_str(LTF::Logger::Level level) const;
-        std::string format_output(const std::string& level);
+        std::string format_output(const std::string& level, const std::string& time, const LTF::Logger::Info& info, const std::string& message);
         std::string get_time_stamp();
-        inline bool should_print(LTF::Logger::Level level) { return level <= this->m_level; }
+        inline bool should_print(LTF::Logger::Level level) const { return level <= this->m_level; }
         void rotate_log_file();
 
     public:

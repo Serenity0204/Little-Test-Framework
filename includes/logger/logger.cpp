@@ -57,11 +57,21 @@ std::string LTF::Logger::get_time_stamp()
     return oss.str();
 }
 
+std::string LTF::Logger::format_output(const std::string& level, const std::string& time, const LTF::Logger::Info& info, const std::string& message)
+{
+    std::string output_str = "";
+    output_str += time + " " + level + " " + info.file + ":" + std::to_string(info.line) + " " + message;
+    return output_str;
+}
+
 void LTF::Logger::log(LTF::Logger::Level level, const std::string& message, const Info& info)
 {
     std::lock_guard<std::mutex> lock(this->m_lock);
     // if level too high then not log
     if (!this->should_print(level)) return;
+    std::string time_output = this->get_time_stamp();
+    std::string level_output = this->level_str(level);
+    std::string output = this->format_output(level_output, time_output, info, message);
 }
 
 void LTF::Logger::level(LTF::Logger::Level level)
