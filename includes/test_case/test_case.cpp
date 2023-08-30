@@ -31,7 +31,7 @@ namespace LTF
     LTFStatus TestCase::run(bool debug, double& time)
     {
         if (this->m_function == nullptr) return LTFStatus();
-        std::chrono::duration<double, std::milli> elapsed = this->m_time();
+        std::chrono::duration<double, std::milli> elapsed = this->time();
         time = elapsed.count();
         return this->m_function(debug);
     }

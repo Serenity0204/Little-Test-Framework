@@ -2,7 +2,16 @@
 #define LOGGER_H
 
 #pragma once
+
 #include "../singleton/singleton.h"
+#include <chrono>
+#include <ctime>
+#include <exception>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <mutex>
+#include <sstream>
 #include <string>
 
 namespace LTF
@@ -22,12 +31,10 @@ namespace LTF
         struct Info
         {
         public:
-            std::string function;
             std::string file;
             int line;
-            Info(const std::string& function = "", const std::string& file = "", int line = 0)
+            Info(const std::string& file = "", int line = 0)
             {
-                this->function = function;
                 this->file = file;
                 this->line = line;
             }
@@ -37,18 +44,32 @@ namespace LTF
         friend class Singleton<LTF::Logger>;
 
     private:
-        // CTORS
-        Logger();
-        Logger(const Logger& rhs) = delete;
-        Logger& operator=(const Logger& rhs) = delete;
-        ~Logger();
+        // class attributes
+        std::ofstream m_file;
+        std::mutex m_lock;
+        LTF::Logger::Level m_level;
+        std::string m_path;
 
     private:
-        // class attributes
+        // CTORS
+        Logger() = default;
+        ~Logger();
+
+        Logger(const Logger& rhs) = delete;
+        Logger& operator=(const Logger& rhs) = delete;
+
+    private:
+        // helper methods
+        std::string level_str(LTF::Logger::Level level) const;
+        std::string format_output(const std::string& level);
+        std::string get_time_stamp();
+        inline bool should_print(LTF::Logger::Level level) { return level <= this->m_level; }
+        void rotate_log_file();
+
     public:
         void log(LTF::Logger::Level level, const std::string& message, const Info& info);
-        void set_level(LTF::Logger::Level level);
-        void set_path(const std::string& path);
+        void level(LTF::Logger::Level level);
+        void open(const std::string& path);
     };
 };
 
