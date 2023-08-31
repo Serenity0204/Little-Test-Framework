@@ -49,7 +49,7 @@ LTF_COMMENT(<Your Message>);
 LTF_TIME(<expected time in nanoseconds>);
 ```
 
-* Using The Built In Powerful Logger In LTF!
+* Use The Powerful Built-In Logger In LTF!
 ```
 // Provided APIs For Logger
 
