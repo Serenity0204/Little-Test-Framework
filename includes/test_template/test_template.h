@@ -16,10 +16,10 @@ namespace LTF
     };
 
 // the macro for logging messages
-#define LTF_MESSAGE(input_message) LTF::Singleton<LTF::LittleTestFramework>::instance().message(__FUNCTION__, input_message)
+#define LTF_MESSAGE(input_message) LTF::Singleton<LTF::LittleTestFramework>::instance().message(__FUNCTION__, input_message);
 
 // time macro for timing in ns
-#define LTF_TIME(time_ns) LTF::Singleton<LTF::LittleTestFramework>::instance().time(__FUNCTION__, time_ns)
+#define LTF_TIME(time_ns) LTF::Singleton<LTF::LittleTestFramework>::instance().time(__FUNCTION__, time_ns);
 
 // TEST SUITE Associate to test function
 // if suite does not exist, create one and add the function into that suite and add it to the manager through singleton instance

@@ -12,19 +12,19 @@ std::string LTF::Logger::level_str(LTF::Logger::Level level) const
     switch (level)
     {
     case LTF::Logger::Level::DEBUG:
-        str = "DEBUG";
+        str = "[DEBUG]";
         break;
     case LTF::Logger::Level::ERROR:
-        str = "ERROR";
+        str = "[ERROR]";
         break;
     case LTF::Logger::Level::FATAL:
-        str = "FATAL";
+        str = "[FATAL]";
         break;
     case LTF::Logger::Level::INFO:
-        str = "INFO";
+        str = "[INFO]";
         break;
     case LTF::Logger::Level::WARN:
-        str = "WARN";
+        str = "[WARN]";
         break;
     default:
         throw std::runtime_error("input level does not exist");
@@ -49,7 +49,14 @@ std::string LTF::Logger::get_time_stamp()
 #endif
 
     pacific_time.tm_hour -= 7;                         // UTC-7
-    if (pacific_time.tm_isdst) pacific_time.tm_hour++; // Adjust for daylight saving time (UTC-8)
+    if (pacific_time.tm_isdst) pacific_time.tm_hour--; // Adjust for daylight saving time (UTC-8)
+
+    // Ensure hours are within 0-23 range
+    if (pacific_time.tm_hour < 0)
+    {
+        pacific_time.tm_hour += 24;
+        pacific_time.tm_mday -= 1; // Go back one day
+    }
 
     // Convert to string
     std::ostringstream oss;
@@ -67,11 +74,26 @@ std::string LTF::Logger::format_output(const std::string& level, const std::stri
 void LTF::Logger::log(LTF::Logger::Level level, const std::string& message, const Info& info)
 {
     std::lock_guard<std::mutex> lock(this->m_lock);
+
     // if level too high then not log
-    if (!this->should_print(level)) return;
+    // check if the log file is opened, if not should not record the log message
+    if (!this->should_print(level) || !this->m_file.is_open()) return;
+
     std::string time_output = this->get_time_stamp();
     std::string level_output = this->level_str(level);
     std::string output = this->format_output(level_output, time_output, info, message);
+
+    // check if the file needs to rotate
+    // logic goes here
+
+    // log the message
+    this->m_file << output << "\n";
+    this->m_file.flush();
+    ++this->m_message_count;
+}
+
+void LTF::Logger::rotate_log_file()
+{
 }
 
 void LTF::Logger::level(LTF::Logger::Level level)
@@ -82,7 +104,7 @@ void LTF::Logger::level(LTF::Logger::Level level)
 void LTF::Logger::open(const std::string& path)
 {
     if (this->m_file.is_open()) this->m_file.close();
-    this->m_file.open(path);
+    this->m_file.open(path, std::ios::out | std::ios::app);
     if (this->m_file.fail()) throw std::logic_error("cannot open the file at " + path);
     this->m_path = path;
 }

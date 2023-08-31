@@ -49,6 +49,7 @@ namespace LTF
         std::mutex m_lock;
         LTF::Logger::Level m_level;
         std::string m_path;
+        int m_message_count = 0;
 
     private:
         // CTORS
@@ -67,9 +68,13 @@ namespace LTF
         void rotate_log_file();
 
     public:
+        // core fucntionalities
         void log(LTF::Logger::Level level, const std::string& message, const Info& info);
         void level(LTF::Logger::Level level);
         void open(const std::string& path);
+
+        // for testing
+        inline int count() { return this->m_message_count; }
     };
 };
 
