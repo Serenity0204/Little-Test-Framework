@@ -21,7 +21,7 @@ namespace LTF
 #define LTF_INFO(message) LTF::Singleton<LTF::Logger>::instance().log(LTF::Logger::Level::INFO, message, LTF::Logger::Info(__FILE__, __LINE__));
 
 // warning
-#define LTF_WARN(message) LTF::Singleton<LTF::Logger>::instance().log(LTF::Logger::Level::WARN, message, LTF::Logger::Info(__FILE__, __LINE__));
+#define LTF_WARNING(message) LTF::Singleton<LTF::Logger>::instance().log(LTF::Logger::Level::WARNING, message, LTF::Logger::Info(__FILE__, __LINE__));
 
 // error
 #define LTF_ERROR(message) LTF::Singleton<LTF::Logger>::instance().log(LTF::Logger::Level::ERROR, message, LTF::Logger::Info(__FILE__, __LINE__));

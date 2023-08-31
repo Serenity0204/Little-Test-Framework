@@ -76,7 +76,7 @@ namespace LTF
         void ignore_tests(const std::string& suite_name, const std::vector<std::string>& tests);
 
         // message
-        void message(const std::string& function, const std::string& message);
+        void comment(const std::string& function, const std::string& message);
 
         // time
         void time(const std::string& function, double time_ns);

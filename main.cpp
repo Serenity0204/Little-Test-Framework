@@ -22,9 +22,11 @@ inline LTF::LTFStatus test_utils_main1(bool debug = false)
 {
     if (debug)
     {
-        LTF_MESSAGE("hello this is a message 1");
-        LTF_MESSAGE("hello this is a message 2");
+        LTF_COMMENT("hello this is a message 1");
+        LTF_COMMENT("hello this is a message 2");
     }
+    LTF_DEBUG("debug message");
+
     return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
 }
 
@@ -33,29 +35,38 @@ inline LTF::LTFStatus test_utils_main2(bool debug = false)
     LTF_TIME(180);
     double result = 0.0;
     for (int i = 0; i < 100000000; ++i) result += (true ? 1.0 : -1.0) * i;
+
+    LTF_INFO("info message");
+
     return LTF::LTFStatus(LTF::FAIL, __LINE__);
 }
 
 inline LTF::LTFStatus test_utils_main3(bool debug = false)
 {
-    if (debug) LTF_MESSAGE("HI");
+    if (debug) LTF_COMMENT("HI");
 
     int a = 1 + 1;
+
+    LTF_WARNING("warning message");
     if (a == 2) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
     return LTF::LTFStatus(LTF::FAIL, __LINE__);
 }
 
 inline LTF::LTFStatus test_utils_main4(bool debug = false)
 {
-    if (debug) LTF_MESSAGE("should be 120");
+    if (debug) LTF_COMMENT("should be 120");
 
     long long f = factorial(5);
+
+    LTF_ERROR("error message");
+
     if (f == 120) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
     return LTF::LTFStatus(LTF::FAIL, __LINE__);
 }
 
 inline LTF::LTFStatus test_ignore1(bool debug = false)
 {
+    LTF_FATAL("fatal message");
     return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
 }
 
@@ -85,6 +96,10 @@ const bool debug = true;
 
 int main()
 {
+    // logging init
+    LTF_LOG_INIT("../../log_main.txt");
+    LTF_LOG_LEVEL(LTF::Logger::Level::WARNING);
+
     // ignore test cases by LTF::LTF_IGNORE_TEST_CASES(<suite name as string>, {<test 1 as string>, <test 2 as string>, ...})
     LTF::LTF_IGNORE_TEST_CASES("SUITE3", {"test_ignore2"});
 
@@ -95,5 +110,6 @@ int main()
     // LTF::LTF_RUN_ALL(debug, LTF::MODE::FILE, "../../output.txt");
     // run all and output to console
     LTF::LTF_RUN_ALL(debug, LTF::MODE::CONSOLE);
+    LTF_DEBUG("debug message from main");
     return 0;
 }

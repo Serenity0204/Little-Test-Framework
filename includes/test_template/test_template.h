@@ -15,8 +15,8 @@ namespace LTF
         const bool debug = false;
     };
 
-// the macro for logging messages
-#define LTF_MESSAGE(input_message) LTF::Singleton<LTF::LittleTestFramework>::instance().message(__FUNCTION__, input_message);
+// the macro for commenting
+#define LTF_COMMENT(message) LTF::Singleton<LTF::LittleTestFramework>::instance().comment(__FUNCTION__, message);
 
 // time macro for timing in ns
 #define LTF_TIME(time_ns) LTF::Singleton<LTF::LittleTestFramework>::instance().time(__FUNCTION__, time_ns);

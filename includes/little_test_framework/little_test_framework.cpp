@@ -178,7 +178,7 @@ void LTF::LittleTestFramework::run_all(bool debug, MODE mode, const std::string&
     if (mode == LTF::MODE::FILE) outs.close();
 }
 
-void LTF::LittleTestFramework::message(const std::string& function, const std::string& message)
+void LTF::LittleTestFramework::comment(const std::string& function, const std::string& message)
 {
     // if the key exists, then get the vector
     if (this->m_messages.count(function) > 0)

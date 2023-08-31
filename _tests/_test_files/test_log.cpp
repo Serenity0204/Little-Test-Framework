@@ -21,13 +21,13 @@ bool test_logger1(bool debug = false)
     delete_file("../../log1.txt");
 
     LTF::Logger& log = LTF::Singleton<LTF::Logger>::instance();
-    log.level(LTF::Logger::Level::WARN);
+    log.level(LTF::Logger::Level::WARNING);
     log.open("../../log1.txt");
 
     // log
     log.log(LTF::Logger::Level::DEBUG, "debug message", LTF::Logger::Info(__FILE__, __LINE__));
     log.log(LTF::Logger::Level::INFO, "info message", LTF::Logger::Info(__FILE__, __LINE__));
-    log.log(LTF::Logger::Level::WARN, "warning message", LTF::Logger::Info(__FILE__, __LINE__));
+    log.log(LTF::Logger::Level::WARNING, "warning message", LTF::Logger::Info(__FILE__, __LINE__));
     log.log(LTF::Logger::Level::ERROR, "error message", LTF::Logger::Info(__FILE__, __LINE__));
     log.log(LTF::Logger::Level::FATAL, "fatal message", LTF::Logger::Info(__FILE__, __LINE__));
 
@@ -49,7 +49,7 @@ bool test_logger2(bool debug = false)
     // // log
     LTF_DEBUG("debug message");
     LTF_INFO("info message");
-    LTF_WARN("warning message");
+    LTF_WARNING("warning message");
     LTF_ERROR("error message");
     LTF_FATAL("fatal message");
 

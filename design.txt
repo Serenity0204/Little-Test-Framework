@@ -12,3 +12,5 @@ project structure:
     --CMakeLists.txt // cmake for this project
 
 // TODO
+
+1. need to implement the rotate file logic

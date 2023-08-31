@@ -23,7 +23,7 @@ std::string LTF::Logger::level_str(LTF::Logger::Level level) const
     case LTF::Logger::Level::INFO:
         str = "[INFO]";
         break;
-    case LTF::Logger::Level::WARN:
+    case LTF::Logger::Level::WARNING:
         str = "[WARN]";
         break;
     default:
@@ -92,10 +92,6 @@ void LTF::Logger::log(LTF::Logger::Level level, const std::string& message, cons
     ++this->m_message_count;
 }
 
-void LTF::Logger::rotate_log_file()
-{
-}
-
 void LTF::Logger::level(LTF::Logger::Level level)
 {
     this->m_level = level;
@@ -107,4 +103,9 @@ void LTF::Logger::open(const std::string& path)
     this->m_file.open(path, std::ios::out | std::ios::app);
     if (this->m_file.fail()) throw std::logic_error("cannot open the file at " + path);
     this->m_path = path;
+}
+
+// TBD
+void LTF::Logger::rotate_log_file()
+{
 }

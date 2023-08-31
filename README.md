@@ -42,13 +42,46 @@ LTF::LTF_IGNORE_SUITES({<suite name 1 as tring>, <suite name 2 as string>, ...})
 ```
 * Log Your Messages Related To A Test Case By
 ```
-LTF_MESSAGE(<Your Message>);
+LTF_COMMENT(<Your Message>);
 ```
 * Time Your Test By
 ```
 LTF_TIME(<expected time in nanoseconds>);
 ```
 
+* Using The Built In Powerful Logger In LTF!
+```
+// Provided APIs For Logger
+
+// Set path
+LTF_LOG_INIT(<path to log file>)
+
+// Set Level With Choices Of
+// 1. LTF::Logger::Level::DEBUG
+// 2. LTF::Logger::Level::INFO
+// 3. LTF::Logger::Level::WARN
+// 4. LTF::Logger::Level::ERROR
+// 5. LTF::Logger::Level::FATAL
+LTF_LOG_LEVEL(<input level>) 
+
+// Different Log Modes Macros
+
+// DEBUG
+LTF_DEBUG(<message>)
+
+// INFO
+LTF_INFO(<message>)
+
+// WARNING
+LTF_WARNING(<message>) 
+
+// ERROR
+LTF_ERROR(<message>) 
+
+// FATAL
+LTF_FATAL(<message>) 
+
+```
 
 ## Features
 - 🧪 Simplicity: We understand the importance of clean and straightforward testing. "Little Test Framework" lets you define and execute tests with just a few lines of code, without overwhelming you with unnecessary complexities.
@@ -65,9 +98,11 @@ LTF_TIME(<expected time in nanoseconds>);
 
 - ⏸️ Flexible Test Skipping: The "Little Test Framework" allows you to ignore specific test cases or even entire test suites. This is particularly useful when certain tests are not applicable under certain conditions or during specific phases of development. By using the built-in skipping mechanism, you can focus on the relevant tests, ensuring efficient testing workflows without the need to comment out or remove test code.
 
-- 📝 Insightful Logging: The framework features a comprehensive log message system, the macro "LTF_LOG" that provides detailed insights into the execution of each test case. During test runs, you can generate custom log messages using the provided logging functions. This allows you to trace the flow of test execution, inspect variable values, and diagnose potential issues more effectively.
+- 📝 Insightful Comment System: The framework features a comprehensive comment message system, the macro "LTF_COMMENT" that provides detailed insights into the execution of each test case. During test runs, you can generate custom log messages using the provided logging functions. This allows you to trace the flow of test execution, inspect variable values, and diagnose potential issues more effectively.
 
 - 🕒 Accurate Execution Timing: When a test case is executed with the "LTF_TIME" macro, the framework records the start and end times of the test's execution. The difference between these timestamps provides an accurate measurement of how long the test took to complete. 
+
+- 📋 Thread-Safe Logger: The framework includes a versatile thread-safe logger with five levels (DEBUG, INFO, WARNING, ERROR, FATAL). Set the desired level to filter and display messages of corresponding severity and above. This empowers effective debugging and analysis while maintaining a clean and concise log output.
 
 
 ## Installation Using CMake
@@ -237,7 +272,17 @@ SUMMARY:
 
 
 ```
+- LTF Logger Output In log_main.txt
+```
+2023-08-30 19:07:48 [DEBUG] C:\Users\yuhen\cpp\Little-Test-Framework\main.cpp:28 debug message
+2023-08-30 19:07:48 [DEBUG] C:\Users\yuhen\cpp\Little-Test-Framework\main.cpp:28 debug message
+2023-08-30 19:07:48 [INFO] C:\Users\yuhen\cpp\Little-Test-Framework\main.cpp:39 info message
+2023-08-30 19:07:49 [INFO] C:\Users\yuhen\cpp\Little-Test-Framework\main.cpp:39 info message
+2023-08-30 19:07:49 [WARN] C:\Users\yuhen\cpp\Little-Test-Framework\main.cpp:50 warning message
+2023-08-30 19:07:49 [WARN] C:\Users\yuhen\cpp\Little-Test-Framework\main.cpp:50 warning message
+2023-08-30 19:07:49 [DEBUG] C:\Users\yuhen\cpp\Little-Test-Framework\main.cpp:113 debug message from main
 
+```
 
 
 ## Example Usage
@@ -266,9 +311,11 @@ inline LTF::LTFStatus test_utils_main1(bool debug = false)
 {
     if (debug)
     {
-        LTF_MESSAGE("hello this is a message 1");
-        LTF_MESSAGE("hello this is a message 2");
+        LTF_COMMENT("hello this is a message 1");
+        LTF_COMMENT("hello this is a message 2");
     }
+    LTF_DEBUG("debug message");
+
     return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
 }
 
@@ -277,29 +324,38 @@ inline LTF::LTFStatus test_utils_main2(bool debug = false)
     LTF_TIME(180);
     double result = 0.0;
     for (int i = 0; i < 100000000; ++i) result += (true ? 1.0 : -1.0) * i;
+
+    LTF_INFO("info message");
+
     return LTF::LTFStatus(LTF::FAIL, __LINE__);
 }
 
 inline LTF::LTFStatus test_utils_main3(bool debug = false)
 {
-    if (debug) LTF_MESSAGE("HI");
+    if (debug) LTF_COMMENT("HI");
 
     int a = 1 + 1;
+
+    LTF_WARNING("warning message");
     if (a == 2) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
     return LTF::LTFStatus(LTF::FAIL, __LINE__);
 }
 
 inline LTF::LTFStatus test_utils_main4(bool debug = false)
 {
-    if (debug) LTF_MESSAGE("should be 120");
+    if (debug) LTF_COMMENT("should be 120");
 
     long long f = factorial(5);
+
+    LTF_ERROR("error message");
+
     if (f == 120) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
     return LTF::LTFStatus(LTF::FAIL, __LINE__);
 }
 
 inline LTF::LTFStatus test_ignore1(bool debug = false)
 {
+    LTF_FATAL("fatal message");
     return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
 }
 
@@ -329,6 +385,10 @@ const bool debug = true;
 
 int main()
 {
+    // logging init
+    LTF_LOG_INIT("../../log_main.txt");
+    LTF_LOG_LEVEL(LTF::Logger::Level::WARNING);
+
     // ignore test cases by LTF::LTF_IGNORE_TEST_CASES(<suite name as string>, {<test 1 as string>, <test 2 as string>, ...})
     LTF::LTF_IGNORE_TEST_CASES("SUITE3", {"test_ignore2"});
 
@@ -339,8 +399,10 @@ int main()
     // LTF::LTF_RUN_ALL(debug, LTF::MODE::FILE, "../../output.txt");
     // run all and output to console
     LTF::LTF_RUN_ALL(debug, LTF::MODE::CONSOLE);
+    LTF_DEBUG("debug message from main");
     return 0;
 }
+
 ```
 
 
