@@ -79,13 +79,13 @@ TEST(TEST_SUITE, TestSuite1)
     EXPECT_EQ(success, true);
 }
 
-TEST(TEST_MANAGER, LittleTestFramework)
+TEST(TEST_MANAGER, LittleTestFramework1)
 {
     bool success = test_manager(debug);
     EXPECT_EQ(success, true);
 }
 
-TEST(TEST_TEMPLATE, TestTemplate)
+TEST(TEST_TEMPLATE, TestTemplate1)
 {
     bool success = test_template(debug);
     EXPECT_EQ(success, true);
@@ -94,7 +94,7 @@ TEST(TEST_TEMPLATE, TestTemplate)
 int main(int argc, char** argv)
 {
     ::testing::InitGoogleTest(&argc, argv);
-    std::cout << "\n\n----------running test_stub.cpp---------\n\n"
+    std::cout << "\n\n----------running test_ltf.cpp---------\n\n"
               << std::endl;
     return RUN_ALL_TESTS();
 }

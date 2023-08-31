@@ -36,7 +36,7 @@ namespace LTF
         LTFStatus (*m_function)(bool debug);
 
         // Function to time other function, in unit of nanoseconds
-        inline std::chrono::duration<double, std::nano> m_time()
+        inline std::chrono::duration<double, std::nano> time()
         {
             // Start the timer
             auto start = std::chrono::high_resolution_clock::now();

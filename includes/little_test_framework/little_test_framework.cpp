@@ -146,7 +146,7 @@ void LTF::LittleTestFramework::run_all(bool debug, MODE mode, const std::string&
                 std::string messages_output = "";
                 // concat messages
                 for (int i = 0; i < messages.size(); ++i) messages_output += SPACE + SPACE + std::to_string(i + 1) + ":" + messages[i] + "\n";
-                std::string output_str = "\n" + SPACE + SPACE + std::string("LOG MESSAGE") + (messages.size() != 1 ? "S" : "") + std::string(" FROM:") + flag.first + ":\n" + messages_output;
+                std::string output_str = "\n" + SPACE + SPACE + std::string("MESSAGE") + (messages.size() != 1 ? "S" : "") + std::string(" FROM:") + flag.first + ":\n" + messages_output;
                 LTF::LittleTestFramework::output(output_str, outs, mode);
             }
             ++count;
@@ -178,7 +178,7 @@ void LTF::LittleTestFramework::run_all(bool debug, MODE mode, const std::string&
     if (mode == LTF::MODE::FILE) outs.close();
 }
 
-void LTF::LittleTestFramework::log(const std::string& function, const std::string& message)
+void LTF::LittleTestFramework::message(const std::string& function, const std::string& message)
 {
     // if the key exists, then get the vector
     if (this->m_messages.count(function) > 0)

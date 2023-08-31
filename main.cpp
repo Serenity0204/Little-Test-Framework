@@ -22,8 +22,8 @@ inline LTF::LTFStatus test_utils_main1(bool debug = false)
 {
     if (debug)
     {
-        LTF_LOG("hello this is a message 1");
-        LTF_LOG("hello this is a message 2");
+        LTF_MESSAGE("hello this is a message 1");
+        LTF_MESSAGE("hello this is a message 2");
     }
     return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
 }
@@ -38,7 +38,7 @@ inline LTF::LTFStatus test_utils_main2(bool debug = false)
 
 inline LTF::LTFStatus test_utils_main3(bool debug = false)
 {
-    if (debug) LTF_LOG("HI");
+    if (debug) LTF_MESSAGE("HI");
 
     int a = 1 + 1;
     if (a == 2) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
@@ -47,7 +47,7 @@ inline LTF::LTFStatus test_utils_main3(bool debug = false)
 
 inline LTF::LTFStatus test_utils_main4(bool debug = false)
 {
-    if (debug) LTF_LOG("should be 120");
+    if (debug) LTF_MESSAGE("should be 120");
 
     long long f = factorial(5);
     if (f == 120) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);

@@ -72,9 +72,15 @@ if(BUILD_TESTS)
         ${SOURCE_FILES}
     )
 
+    ADD_EXECUTABLE(test_log
+        _tests/_test_files/test_log.cpp
+        ${SOURCE_FILES}
+    )
+
 
     TARGET_LINK_LIBRARIES(main GTest::gtest_main)
     TARGET_LINK_LIBRARIES(test_ltf GTest::gtest_main)
+    TARGET_LINK_LIBRARIES(test_log GTest::gtest_main)
 endif()
 
 

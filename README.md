@@ -40,9 +40,9 @@ LTF::LTF_IGNORE_TEST_CASES(<suite name as string>, {<test 1 as string>, <test 2 
 ```
 LTF::LTF_IGNORE_SUITES({<suite name 1 as tring>, <suite name 2 as string>, ...});
 ```
-* Log Your Messages By
+* Log Your Messages Related To A Test Case By
 ```
-LTF_LOG(<Your Message>);
+LTF_MESSAGE(<Your Message>);
 ```
 * Time Your Test By
 ```
@@ -94,7 +94,7 @@ TARGET_LINK_LIBRARIES(main PRIVATE LTF)
 
 
 ## Demo
-- Debug == False
+- LTF Debug == False
 ```
 LTF RUNNING ALL 4 TEST SUITES:
 ---------------------------------------------------------------------------------------------------------
@@ -160,7 +160,7 @@ SUMMARY:
 ```
 
 
-- Debug == True
+- LTF Debug == True
 ```
 LTF RUNNING ALL 4 TEST SUITES:
 ---------------------------------------------------------------------------------------------------------
@@ -266,8 +266,8 @@ inline LTF::LTFStatus test_utils_main1(bool debug = false)
 {
     if (debug)
     {
-        LTF_LOG("hello this is a message 1");
-        LTF_LOG("hello this is a message 2");
+        LTF_MESSAGE("hello this is a message 1");
+        LTF_MESSAGE("hello this is a message 2");
     }
     return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
 }
@@ -282,7 +282,7 @@ inline LTF::LTFStatus test_utils_main2(bool debug = false)
 
 inline LTF::LTFStatus test_utils_main3(bool debug = false)
 {
-    if (debug) LTF_LOG("HI");
+    if (debug) LTF_MESSAGE("HI");
 
     int a = 1 + 1;
     if (a == 2) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
@@ -291,7 +291,7 @@ inline LTF::LTFStatus test_utils_main3(bool debug = false)
 
 inline LTF::LTFStatus test_utils_main4(bool debug = false)
 {
-    if (debug) LTF_LOG("should be 120");
+    if (debug) LTF_MESSAGE("should be 120");
 
     long long f = factorial(5);
     if (f == 120) return LTF::LTFStatus(LTF::SUCCESS, __LINE__);
