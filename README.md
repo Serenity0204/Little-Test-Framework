@@ -1,6 +1,6 @@
 
 # Little Test Framework (LTF)
-Little Test Framework(LTF), is a hassle-free, lightweight (617 lines of code ONLY) C++ unit testing framework. Designed to make your testing experience efficient and effective, this framework provides a minimalistic approach while maintaining powerful testing capabilities.
+Little Test Framework(LTF), is a hassle-free, lightweight (831 lines of code ONLY) C++ unit testing framework. Designed to make your testing experience efficient and effective, this framework provides a minimalistic approach while maintaining powerful testing capabilities.
 
 
 ## Operations
@@ -126,7 +126,11 @@ FetchContent_MakeAvailable(LTF)
 ADD_EXECUTABLE(main main.cpp)
 TARGET_LINK_LIBRARIES(main PRIVATE LTF)
 ```
-
+## Installation Using Single Header File
+Get The Single Header File LTF.h Here:
+```
+https://github.com/Serenity0204/Little-Test-Framework/blob/master/LTF.h
+```
 
 ## Demo
 - LTF Debug == False
