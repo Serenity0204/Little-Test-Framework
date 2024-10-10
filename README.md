@@ -38,7 +38,7 @@ LTF::LTF_IGNORE_TEST_CASES(<suite name as string>, {<test 1 as string>, <test 2 
 
 * Ignore Test Cases Of A Test Suite By
 ```
-LTF::LTF_IGNORE_SUITES({<suite name 1 as tring>, <suite name 2 as string>, ...});
+LTF::LTF_IGNORE_SUITES({<suite name 1 as string>, <suite name 2 as string>, ...});
 ```
 * Log Your Messages Related To A Test Case By
 ```
